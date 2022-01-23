@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}?characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      username: ${MYSQL_USER_NAME}
+      password: ${MYSQL_PASSWORD}
+  application:
+    name: CatHatMusic
+  profiles:
+    active: dev
+  flyway:
+    enabled: false
+    encoding: UTF-8
+    locations: classpath:db/migration
+    sqlMigrationPrefix: V
+    sqlMigrationSeparator: __
+    sqlMigrationSuffixes: .sql
+    validateOnMigrate: true
+    baselineOnMigrate: true
+    schemas: jooq
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  port: ${APPLICATION_PORT}
+
+
+

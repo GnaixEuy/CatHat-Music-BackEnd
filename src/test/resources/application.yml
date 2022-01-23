@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: music
+  datasource:
+    url: jdbc:h2:mem:music;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    username: GnaixEuy
+    driver-class-name: org.h2.Driver
+    password:
+  sql:
+    init:
+      platform: h2
+      continue-on-error: false
+  flyway:
+    enabled: false
+  h2:
+    console:
+      enabled: true
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+
+
+
+
+
+
+
