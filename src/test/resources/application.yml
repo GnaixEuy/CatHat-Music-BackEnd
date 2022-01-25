@@ -1,54 +1,27 @@
-#spring:
-#  application:
-#    name: music
-#  datasource:
-#    url: jdbc:h2:mem:music;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
-#    username: GnaixEuy
-#    driver-class-name: org.h2.Driver
-#    password:
-#  sql:
-#    init:
-#      platform: h2
-#      continue-on-error: false
-#  flyway:
-#    enabled: false
-#  h2:
-#    console:
-#      enabled: true
-#  jpa:
-#    generate-ddl: true
-#    hibernate:
-#      ddl-auto: create-drop
-#    show-sql: true
-#  mvc:
-#    pathmatch:
-#      matching-strategy: ant_path_matcher
-#
-#springfox:
-#  documentation:
-#    swagger-ui:
-#      enabled: true
-#
-#
-#
-#
-#
-#
-#
 spring:
+  application:
+    name: CatHatMusic
   datasource:
     druid:
       url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DATABASE_NAME}?characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
       username: ${MYSQL_USER_NAME}
       password: ${MYSQL_PASSWORD}
       driver-class-name: com.mysql.cj.jdbc.Driver
-  application:
-    name: CatHatMusic
-  profiles:
-    active: dev
+    url: jdbc:h2:mem:music;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    username: GnaixEuy
+    driver-class-name: org.h2.Driver
+    password:
+  sql:
+    init:
+      platform: h2
+      continue-on-error: false
   flyway:
     enabled: false
-
+  h2:
+    console:
+      enabled: true
+  profiles:
+    active: dev
 mybatis-plus:
   type-enums-package: cn.limitless.cathatmusic.enums
   configuration:

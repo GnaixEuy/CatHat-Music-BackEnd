@@ -24,9 +24,6 @@ public class AbstractEntity {
 	@TableField(value = "created_time", fill = FieldFill.INSERT)
 	private Date createdTime;
 
-	/**
-	 * update逻辑待探究
-	 */
 	@TableField(value = "updated_time", fill = FieldFill.INSERT_UPDATE)
 	private Date updatedTime;
 }

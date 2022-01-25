@@ -2,9 +2,11 @@ package cn.limitless.cathatmusic.entity;
 
 import cn.limitless.cathatmusic.enums.Gender;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -19,6 +21,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(callSuper = true)
+@TableName(value = "user")
 public class User extends AbstractEntity {
 
 	@TableField(value = "username")
@@ -44,5 +47,8 @@ public class User extends AbstractEntity {
 
 	@TableField(value = "last_login_time")
 	private Date lastLoginTime;
-	
+
+	@TableField(exist = false)
+	private List<Role> roles;
+
 }
