@@ -1,3 +1,8 @@
 spring:
   config:
     import: optional:file:.env.dev[.properties]
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
