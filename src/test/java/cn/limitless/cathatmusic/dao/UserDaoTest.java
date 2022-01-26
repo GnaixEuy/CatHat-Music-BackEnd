@@ -42,7 +42,7 @@ public class UserDaoTest {
 	@Test
 	public void testInsert() {
 		final User user = new User();
-		user.setUserName("GnaixEuyTest");
+		user.setUsername("GnaixEuyTest");
 		user.setNickName("programmer: GnaixEuy");
 		user.setEnabled(true);
 		user.setLocked(false);

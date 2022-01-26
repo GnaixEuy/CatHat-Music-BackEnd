@@ -26,7 +26,7 @@ mybatis-plus:
   type-enums-package: cn.limitless.cathatmusic.enums
   configuration:
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
-    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case: false
   type-aliases-package: cn.limitless.cathatmusic.entity
 
 

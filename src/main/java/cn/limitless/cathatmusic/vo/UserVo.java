@@ -17,7 +17,7 @@ public class UserVo {
 
 	private String id;
 
-	private String userName;
+	private String username;
 
 	private String nickName;
 

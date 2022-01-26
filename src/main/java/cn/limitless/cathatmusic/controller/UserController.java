@@ -1,12 +1,11 @@
 package cn.limitless.cathatmusic.controller;
 
+import cn.limitless.cathatmusic.dto.UserCreateDto;
 import cn.limitless.cathatmusic.mapper.UserMapper;
 import cn.limitless.cathatmusic.service.UserService;
 import cn.limitless.cathatmusic.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,11 +32,16 @@ public class UserController {
 
 	@GetMapping(value = {"/"})
 	public List<UserVo> list() {
-		return userService.getList()
+		return userService.list()
 				.stream()
+				.map(this.userMapper::toDto)
 				.map(this.userMapper::toVo)
 				.collect(Collectors.toList());
 	}
 
+	@PostMapping(value = {"/"})
+	public UserVo create(@RequestBody UserCreateDto userCreateDto) {
+		return this.userMapper.toVo(this.userService.create(userCreateDto));
+	}
 
 }

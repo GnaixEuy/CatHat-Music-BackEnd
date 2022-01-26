@@ -4,7 +4,10 @@ import cn.limitless.cathatmusic.enums.Gender;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -17,38 +20,92 @@ import java.util.List;
  */
 
 @EqualsAndHashCode(callSuper = true)
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @ToString(callSuper = true)
 @TableName(value = "user", resultMap = "userResultMap")
-public class User extends AbstractEntity {
+public class User extends AbstractEntity implements UserDetails {
 
-	@TableField(value = "username")
-	private String userName;
+	private String username;
 
-	@TableField(value = "nickname")
 	private String nickName;
 
-	@TableField(value = "password")
 	private String password;
 
-	@TableField(value = "gender")
 	private Gender gender;
 
-	@TableField(value = "locked")
-	private Boolean locked;
+	private Boolean locked = false;
 
-	@TableField(value = "enabled")
-	private Boolean enabled;
+	private Boolean enabled = true;
 
-	@TableField(value = "last_login_ip")
 	private String lastLoginIp;
 
-	@TableField(value = "last_login_time")
 	private Date lastLoginTime;
 
 	@TableField(exist = false)
 	private List<Role> roles;
 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return !getLocked();
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public Boolean getLocked() {
+		return locked;
+	}
+
+	public String getLastLoginIp() {
+		return lastLoginIp;
+	}
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
 }

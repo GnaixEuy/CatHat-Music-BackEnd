@@ -1,5 +1,6 @@
 package cn.limitless.cathatmusic.mapper;
 
+import cn.limitless.cathatmusic.dto.UserCreateDto;
 import cn.limitless.cathatmusic.dto.UserDto;
 import cn.limitless.cathatmusic.entity.User;
 import cn.limitless.cathatmusic.vo.UserVo;
@@ -21,4 +22,5 @@ public interface UserMapper {
 
 	UserVo toVo(UserDto userDto);
 
+	User createEntity(UserCreateDto userCreateDto);
 }

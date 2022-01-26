@@ -7,7 +7,7 @@
         <id column="id" property="id"/>
         <result column="created_time" property="createdTime"/>
         <result column="updated_time" property="updatedTime"/>
-        <result column="username" property="userName"/>
+        <result column="username" property="username"/>
         <result column="nickname" property="nickName"/>
         <result column="password" property="password"/>
         <result column="gender" property="gender"/>

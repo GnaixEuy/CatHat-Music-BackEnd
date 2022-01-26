@@ -21,6 +21,7 @@ public class KsuidIdentifierGenerator implements IdentifierGenerator {
 	}
 
 	@Override
+	@SuppressWarnings(value = {"nls"})
 	public String nextUUID(Object entity) {
 		return KsuidGenerator.generate();
 	}
