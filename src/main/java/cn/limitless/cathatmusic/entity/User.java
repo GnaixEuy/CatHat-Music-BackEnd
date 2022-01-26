@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(callSuper = true)
-@TableName(value = "user")
+@TableName(value = "user", resultMap = "userResultMap")
 public class User extends AbstractEntity {
 
 	@TableField(value = "username")

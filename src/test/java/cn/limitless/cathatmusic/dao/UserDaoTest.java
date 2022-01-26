@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @SpringBootTest
 @Transactional
-public class UserMapperTest {
+public class UserDaoTest {
 
 	@Autowired
 	private UserDao userDao;
@@ -31,6 +31,12 @@ public class UserMapperTest {
 	public void testSelectList() {
 		final List<User> users = this.userDao.selectList(null);
 		users.forEach(System.out::println);
+	}
+
+	@Test
+	void testSelectById() {
+		final User user = this.userDao.selectById(1);
+		final User user2 = this.userDao.selectById(2);
 	}
 
 	@Test
