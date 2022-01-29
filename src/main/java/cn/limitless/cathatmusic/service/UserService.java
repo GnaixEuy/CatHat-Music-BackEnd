@@ -2,6 +2,7 @@ package cn.limitless.cathatmusic.service;
 
 import cn.limitless.cathatmusic.dto.UserCreateRequest;
 import cn.limitless.cathatmusic.dto.UserDto;
+import cn.limitless.cathatmusic.dto.UserUpdateRequest;
 import cn.limitless.cathatmusic.entity.User;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -19,6 +20,8 @@ public interface UserService extends IService<User>, UserDetailsService {
 	Page<UserDto> search(Page page);
 
 	UserDto create(UserCreateRequest userCreateRequest);
+
+	UserDto update(String id, UserUpdateRequest userUpdateRequest);
 
 	@Override
 	User loadUserByUsername(String username);

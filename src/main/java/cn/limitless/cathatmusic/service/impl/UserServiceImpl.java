@@ -1,10 +1,13 @@
 package cn.limitless.cathatmusic.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.limitless.cathatmusic.dao.UserDao;
 import cn.limitless.cathatmusic.dto.UserCreateRequest;
 import cn.limitless.cathatmusic.dto.UserDto;
+import cn.limitless.cathatmusic.dto.UserUpdateRequest;
 import cn.limitless.cathatmusic.entity.User;
+import cn.limitless.cathatmusic.enums.Gender;
 import cn.limitless.cathatmusic.exception.BizException;
 import cn.limitless.cathatmusic.exception.ExceptionType;
 import cn.limitless.cathatmusic.mapper.UserMapper;
@@ -45,9 +48,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
 	@Override
 	public Page<UserDto> search(Page page) {
-
 		page = this.userDao.selectPage(page, Wrappers.<User>lambdaQuery().orderByAsc(User::getCreatedTime));
-
 		final List<UserDto> userDtoList = ((List<User>) page.getRecords())
 				.stream()
 				.map(this.userMapper::toDto)
@@ -78,7 +79,33 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 		throw new BizException(ExceptionType.USER_INSERT_ERROR);
 	}
 
+	@Override
+	public UserDto update(String id, UserUpdateRequest userUpdateRequest) {
+		final User user = getById(id);
+		if (user == null) {
+			throw new BizException(ExceptionType.USER_NOT_FOUND);
+		}
+		final String username = userUpdateRequest.getUsername();
+		final String nickname = userUpdateRequest.getNickname();
+		final String gender = userUpdateRequest.getGender();
+		if (!StrUtil.isBlank(username)) {
+			user.setUsername(username);
+		}
+		if (!StrUtil.isBlank(nickname)) {
+			user.setNickname(nickname);
+		}
+		if (!StrUtil.isBlank(gender)) {
+			user.setGender(Gender.valueOf(gender));
+		}
+		final boolean success = this.updateById(user);
+		if (success) {
+			return this.userMapper.toDto(user);
+		}
+		throw new BizException(ExceptionType.USER_UPDATE_ERROR);
+	}
+
 	private void checkUserName(String username) {
+		// Todo: 重构
 		final List<User> users = this.userDao.selectByMap(new HashMap<>(1) {{
 			put("username", username);
 		}});
@@ -89,9 +116,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
 	@Override
 	public User loadUserByUsername(String username) {
-		User user = this.userDao.selectByMap(new HashMap<>(1) {{
-			put("username", username);
-		}}).get(0);
+		User user = this.userDao.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
 		if (user == null) {
 			throw new BizException(ExceptionType.USER_NOT_FOUND);
 		}

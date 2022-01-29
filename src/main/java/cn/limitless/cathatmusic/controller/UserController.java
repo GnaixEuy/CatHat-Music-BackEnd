@@ -3,6 +3,9 @@ package cn.limitless.cathatmusic.controller;
 import cn.limitless.cathatmusic.dto.UserCreateRequest;
 import cn.limitless.cathatmusic.dto.UserDto;
 import cn.limitless.cathatmusic.dto.UserUpdateRequest;
+import cn.limitless.cathatmusic.entity.User;
+import cn.limitless.cathatmusic.exception.BizException;
+import cn.limitless.cathatmusic.exception.ExceptionType;
 import cn.limitless.cathatmusic.mapper.UserMapper;
 import cn.limitless.cathatmusic.service.UserService;
 import cn.limitless.cathatmusic.vo.UserVo;
@@ -60,22 +63,27 @@ public class UserController {
 	}
 
 	@GetMapping(value = {"/{id}"})
-	UserVo get(@PathVariable String id) {
-		return this.userMapper.toVo(
-				this.userMapper.toDto(
-						this.userService.getById(id)
-				)
-		);
+	public UserVo get(@PathVariable String id) {
+		final User user = this.userService.getById(id);
+		if (user == null) {
+			throw new BizException(ExceptionType.USER_NOT_FOUND);
+		} else {
+			return this.userMapper.toVo(this.userMapper.toDto(user));
+		}
 	}
 
 	@PutMapping(value = {"/{id}"})
-	UserVo update(@PathVariable String id, @Validated @RequestBody UserUpdateRequest userUpdateRequest) {
-		return null;
+	public UserVo update(@PathVariable String id, @Validated @RequestBody UserUpdateRequest userUpdateRequest) {
+		final UserDto userDto = this.userService.update(id, userUpdateRequest);
+		return this.userMapper.toVo(userDto);
 	}
 
 	@DeleteMapping(value = {"/{id}"})
 	void delete(@PathVariable String id) {
-		this.userService.removeById(id);
+		final boolean success = this.userService.removeById(id);
+		if (!success) {
+			throw new BizException(ExceptionType.USER_DELETE_ERROR);
+		}
 	}
 
 }
