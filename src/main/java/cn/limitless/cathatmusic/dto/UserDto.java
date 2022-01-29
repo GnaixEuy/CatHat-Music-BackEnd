@@ -13,14 +13,15 @@ import java.util.List;
  * @date 2022/1/25
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+
 @Data
 public class UserDto {
 
 	private String id;
 
-	private String userName;
+	private String username;
 
-	private String nickName;
+	private String nickname;
 
 	private List<RoleDto> roles;
 

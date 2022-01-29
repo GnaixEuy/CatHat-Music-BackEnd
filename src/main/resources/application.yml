@@ -18,7 +18,6 @@ spring:
     sqlMigrationSuffixes: .sql
     validateOnMigrate: true
     baselineOnMigrate: true
-
 server:
   port: ${APPLICATION_PORT}
 mybatis-plus:

@@ -29,7 +29,7 @@ public class User extends AbstractEntity implements UserDetails {
 
 	private String username;
 
-	private String nickName;
+	private String nickname;
 
 	private String password;
 
@@ -56,10 +56,6 @@ public class User extends AbstractEntity implements UserDetails {
 		return this.username;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -80,8 +76,8 @@ public class User extends AbstractEntity implements UserDetails {
 		return this.enabled;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
 
 	@Override
@@ -108,4 +104,5 @@ public class User extends AbstractEntity implements UserDetails {
 	public List<Role> getRoles() {
 		return roles;
 	}
+
 }

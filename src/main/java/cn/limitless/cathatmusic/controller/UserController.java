@@ -1,10 +1,14 @@
 package cn.limitless.cathatmusic.controller;
 
-import cn.limitless.cathatmusic.dto.UserCreateDto;
+import cn.limitless.cathatmusic.dto.UserCreateRequest;
+import cn.limitless.cathatmusic.dto.UserDto;
+import cn.limitless.cathatmusic.dto.UserUpdateRequest;
 import cn.limitless.cathatmusic.mapper.UserMapper;
 import cn.limitless.cathatmusic.service.UserService;
 import cn.limitless.cathatmusic.vo.UserVo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,18 +34,48 @@ public class UserController {
 		this.userMapper = userMapper;
 	}
 
+//	@GetMapping(value = {"/"})
+//	public List<UserVo> list() {
+//		return userService.list()
+//				.stream()
+//				.map(this.userMapper::toDto)
+//				.map(this.userMapper::toVo)
+//				.collect(Collectors.toList());
+//	}
+
 	@GetMapping(value = {"/"})
-	public List<UserVo> list() {
-		return userService.list()
+	public Page<UserVo> search(Page page) {
+		page = this.userService.search(page);
+		final List<UserVo> collect = ((List<UserDto>) page.getRecords())
 				.stream()
-				.map(this.userMapper::toDto)
 				.map(this.userMapper::toVo)
 				.collect(Collectors.toList());
+		page.setRecords(collect);
+		return page;
 	}
 
 	@PostMapping(value = {"/"})
-	public UserVo create(@RequestBody UserCreateDto userCreateDto) {
-		return this.userMapper.toVo(this.userService.create(userCreateDto));
+	public UserVo create(@Validated @RequestBody UserCreateRequest userCreateRequest) {
+		return this.userMapper.toVo(this.userService.create(userCreateRequest));
+	}
+
+	@GetMapping(value = {"/{id}"})
+	UserVo get(@PathVariable String id) {
+		return this.userMapper.toVo(
+				this.userMapper.toDto(
+						this.userService.getById(id)
+				)
+		);
+	}
+
+	@PutMapping(value = {"/{id}"})
+	UserVo update(@PathVariable String id, @Validated @RequestBody UserUpdateRequest userUpdateRequest) {
+		return null;
+	}
+
+	@DeleteMapping(value = {"/{id}"})
+	void delete(@PathVariable String id) {
+		this.userService.removeById(id);
 	}
 
 }

@@ -1,8 +1,9 @@
 package cn.limitless.cathatmusic.service;
 
-import cn.limitless.cathatmusic.dto.UserCreateDto;
+import cn.limitless.cathatmusic.dto.UserCreateRequest;
 import cn.limitless.cathatmusic.dto.UserDto;
 import cn.limitless.cathatmusic.entity.User;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -15,8 +16,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 public interface UserService extends IService<User>, UserDetailsService {
 
-	UserDto create(UserCreateDto userCreateDto);
+	Page<UserDto> search(Page page);
+
+	UserDto create(UserCreateRequest userCreateRequest);
 
 	@Override
 	User loadUserByUsername(String username);
+
 }

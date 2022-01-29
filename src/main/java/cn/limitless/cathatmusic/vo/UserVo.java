@@ -19,7 +19,7 @@ public class UserVo {
 
 	private String username;
 
-	private String nickName;
+	private String nickname;
 
 	private Gender gender;
 

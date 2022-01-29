@@ -43,7 +43,7 @@ public class UserDaoTest {
 	public void testInsert() {
 		final User user = new User();
 		user.setUsername("GnaixEuyTest");
-		user.setNickName("programmer: GnaixEuy");
+		user.setNickname("programmer: GnaixEuy");
 		user.setEnabled(true);
 		user.setLocked(false);
 		user.setPassword("2333333");
