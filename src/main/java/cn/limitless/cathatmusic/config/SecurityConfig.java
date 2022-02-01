@@ -1,13 +1,13 @@
 package cn.limitless.cathatmusic.config;
 
 import cn.limitless.cathatmusic.exception.RestAuthenticationEntryPoint;
-import cn.limitless.cathatmusic.filter.JwtAuthenticationFilter;
 import cn.limitless.cathatmusic.filter.JwtAuthorizationFilter;
 import cn.limitless.cathatmusic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public static final long EXPIRATION_TIME = 864000000;
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
-	public static final String SIGN_UP_URL = "/users/";
+	public static final String CREATE_TOKEN_URL = "/tokens";
 
 	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 	private UserService userService;
@@ -40,10 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
 				.authorizeRequests()
-//				.antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+				.antMatchers(SecurityConfig.CREATE_TOKEN_URL).permitAll()
 				.anyRequest().authenticated()
 				.and()
-				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 				.addFilter(new JwtAuthorizationFilter(authenticationManager()))
 				.exceptionHandling()
 				.authenticationEntryPoint(this.restAuthenticationEntryPoint)
@@ -65,5 +64,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void setRestAuthenticationEntryPoint(RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
 		this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
+	}
+
+	@Override
+	public void configure(WebSecurity web) {
+		web.ignoring().antMatchers("/swagger**/**")
+				.antMatchers("/webjars/**")
+				.antMatchers("/v3/**")
+				.antMatchers("/doc.html");
 	}
 }

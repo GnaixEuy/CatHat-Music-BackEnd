@@ -1,5 +1,6 @@
 package cn.limitless.cathatmusic.service;
 
+import cn.limitless.cathatmusic.dto.TokenCreateRequest;
 import cn.limitless.cathatmusic.dto.UserCreateRequest;
 import cn.limitless.cathatmusic.dto.UserDto;
 import cn.limitless.cathatmusic.dto.UserUpdateRequest;
@@ -26,4 +27,7 @@ public interface UserService extends IService<User>, UserDetailsService {
 	@Override
 	User loadUserByUsername(String username);
 
+	String createToken(TokenCreateRequest tokenCreateRequest);
+
+	UserDto getCurrentUser();
 }

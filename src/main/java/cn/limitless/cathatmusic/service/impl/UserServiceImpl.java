@@ -2,7 +2,9 @@ package cn.limitless.cathatmusic.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.limitless.cathatmusic.config.SecurityConfig;
 import cn.limitless.cathatmusic.dao.UserDao;
+import cn.limitless.cathatmusic.dto.TokenCreateRequest;
 import cn.limitless.cathatmusic.dto.UserCreateRequest;
 import cn.limitless.cathatmusic.dto.UserDto;
 import cn.limitless.cathatmusic.dto.UserUpdateRequest;
@@ -12,14 +14,19 @@ import cn.limitless.cathatmusic.exception.BizException;
 import cn.limitless.cathatmusic.exception.ExceptionType;
 import cn.limitless.cathatmusic.mapper.UserMapper;
 import cn.limitless.cathatmusic.service.UserService;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,7 +60,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 				.stream()
 				.map(this.userMapper::toDto)
 				.collect(Collectors.toList());
-		log.info(userDtoList.toString());
 		page.setRecords(userDtoList);
 		return page;
 	}
@@ -121,5 +127,30 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 			throw new BizException(ExceptionType.USER_NOT_FOUND);
 		}
 		return user;
+	}
+
+	@Override
+	public String createToken(TokenCreateRequest tokenCreateRequest) {
+		final User user = this.loadUserByUsername(tokenCreateRequest.getUsername());
+		if (!passwordEncoder.matches(tokenCreateRequest.getPassword(), user.getPassword())) {
+			throw new BizException(ExceptionType.USER_PASSWORD_NOT_MATCH);
+		}
+		if (!user.isEnabled()) {
+			throw new BizException(ExceptionType.USER_NOT_ENABLED);
+		}
+		if (!user.isAccountNonLocked()) {
+			throw new BizException(ExceptionType.USER_LOCKED);
+		}
+		return JWT.create()
+				.withSubject(user.getUsername())
+				.withExpiresAt(new Date(System.currentTimeMillis() + SecurityConfig.EXPIRATION_TIME))
+				.sign(Algorithm.HMAC512(SecurityConfig.SECRET.getBytes()));
+	}
+
+	@Override
+	public UserDto getCurrentUser() {
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		final User user = this.loadUserByUsername(authentication.getName());
+		return this.userMapper.toDto(user);
 	}
 }

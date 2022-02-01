@@ -10,6 +10,8 @@ import cn.limitless.cathatmusic.mapper.UserMapper;
 import cn.limitless.cathatmusic.service.UserService;
 import cn.limitless.cathatmusic.vo.UserVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping(value = {"/users"})
+@Api(tags = {"用户"})
 public class UserController {
 
 	private final UserService userService;
@@ -46,7 +49,8 @@ public class UserController {
 //				.collect(Collectors.toList());
 //	}
 
-	@GetMapping(value = {"/"})
+	@GetMapping(value = {""})
+	@ApiOperation(value = "用户检索")
 	public Page<UserVo> search(Page page) {
 		page = this.userService.search(page);
 		final List<UserVo> collect = ((List<UserDto>) page.getRecords())
@@ -57,7 +61,7 @@ public class UserController {
 		return page;
 	}
 
-	@PostMapping(value = {"/"})
+	@PostMapping(value = {""})
 	public UserVo create(@Validated @RequestBody UserCreateRequest userCreateRequest) {
 		return this.userMapper.toVo(this.userService.create(userCreateRequest));
 	}
@@ -84,6 +88,11 @@ public class UserController {
 		if (!success) {
 			throw new BizException(ExceptionType.USER_DELETE_ERROR);
 		}
+	}
+
+	@GetMapping(value = {"/me"})
+	UserVo me() {
+		return this.userMapper.toVo(this.userService.getCurrentUser());
 	}
 
 }

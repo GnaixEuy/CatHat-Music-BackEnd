@@ -18,6 +18,9 @@ spring:
     sqlMigrationSuffixes: .sql
     validateOnMigrate: true
     baselineOnMigrate: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 server:
   port: ${APPLICATION_PORT}
 mybatis-plus:
@@ -27,6 +30,5 @@ mybatis-plus:
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
     map-underscore-to-camel-case: false
   type-aliases-package: cn.limitless.cathatmusic.entity
-
 
 
