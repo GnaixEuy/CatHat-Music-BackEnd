@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,7 @@ public class UserController {
 
 	@GetMapping(value = {""})
 	@ApiOperation(value = "用户检索")
+	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public Page<UserVo> search(Page page) {
 		page = this.userService.search(page);
 		final List<UserVo> collect = ((List<UserDto>) page.getRecords())
@@ -62,6 +64,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = {""})
+	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public UserVo create(@Validated @RequestBody UserCreateRequest userCreateRequest) {
 		return this.userMapper.toVo(this.userService.create(userCreateRequest));
 	}
@@ -77,12 +80,14 @@ public class UserController {
 	}
 
 	@PutMapping(value = {"/{id}"})
+	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public UserVo update(@PathVariable String id, @Validated @RequestBody UserUpdateRequest userUpdateRequest) {
 		final UserDto userDto = this.userService.update(id, userUpdateRequest);
 		return this.userMapper.toVo(userDto);
 	}
 
 	@DeleteMapping(value = {"/{id}"})
+	@RolesAllowed(value = {"ROLE_ADMIN"})
 	void delete(@PathVariable String id) {
 		final boolean success = this.userService.removeById(id);
 		if (!success) {

@@ -1,6 +1,8 @@
 package cn.limitless.cathatmusic.filter;
 
 import cn.limitless.cathatmusic.config.SecurityConfig;
+import cn.limitless.cathatmusic.entity.User;
+import cn.limitless.cathatmusic.service.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -24,8 +25,11 @@ import java.util.ArrayList;
  */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-	public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
+	private final UserService userService;
+
+	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserService userService) {
 		super(authenticationManager);
+		this.userService = userService;
 	}
 
 	@Override
@@ -48,7 +52,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 					.getSubject();
 
 			if (username != null) {
-				return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+				final User user = this.userService.loadUserByUsername(username);
+				return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
 			}
 		}
 		return null;

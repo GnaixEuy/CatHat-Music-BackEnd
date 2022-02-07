@@ -6,6 +6,7 @@ import cn.limitless.cathatmusic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,6 +22,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+		prePostEnabled = true,
+		securedEnabled = true,
+		jsr250Enabled = true
+)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	public static final String SECRET = "CatHatMusic";
@@ -43,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(SecurityConfig.CREATE_TOKEN_URL).permitAll()
 				.anyRequest().authenticated()
 				.and()
-				.addFilter(new JwtAuthorizationFilter(authenticationManager()))
+				.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userService))
 				.exceptionHandling()
 				.authenticationEntryPoint(this.restAuthenticationEntryPoint)
 				.and()
