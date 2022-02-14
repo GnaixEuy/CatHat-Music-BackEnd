@@ -100,6 +100,11 @@
             <version>1.4.2.Final</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+            <version>4.2.0</version>
+        </dependency>
     </dependencies>
 
     <build>
