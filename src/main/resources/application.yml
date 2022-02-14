@@ -31,4 +31,7 @@ mybatis-plus:
     map-underscore-to-camel-case: false
   type-aliases-package: cn.limitless.cathatmusic.entity
 
-
+weixin:
+  mp:
+    app-id: wxb8457d2ef6571017
+    app-secret: 442f435c4f5feab881cf27b3c6c49ca0
