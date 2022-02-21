@@ -5,7 +5,6 @@ import cn.limitless.cathatmusic.dto.UserDto;
 import cn.limitless.cathatmusic.entity.User;
 import cn.limitless.cathatmusic.vo.UserVo;
 import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Mapper(componentModel = "spring")
-@Component
 public interface UserMapper {
 
 	UserDto toDto(User user);

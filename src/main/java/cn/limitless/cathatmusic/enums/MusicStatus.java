@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public enum MusicStatus {
+	/**
+	 *
+	 */
 	DRAFT,
 	PUBLISH,
 	CLOSED;
