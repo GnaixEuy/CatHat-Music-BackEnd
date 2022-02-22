@@ -79,6 +79,9 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Todo 自动更新时间bug未修复
+	 */
 	@PutMapping(value = {"/{id}"})
 	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public UserVo update(@PathVariable String id, @Validated @RequestBody UserUpdateRequest userUpdateRequest) {

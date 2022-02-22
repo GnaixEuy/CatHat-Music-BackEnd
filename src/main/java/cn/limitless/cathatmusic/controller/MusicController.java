@@ -37,6 +37,9 @@ public class MusicController {
 		return this.musicMapper.toVo(this.musicService.create(musicCreateRequest));
 	}
 
+	/**
+	 * Todo 自动更新时间bug未修复
+	 */
 	@PostMapping(value = {"/{id}"})
 	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public MusicVo update(@PathVariable String id, @Validated @RequestBody MusicUpdateRequest musicUpdateRequest) {
