@@ -3,6 +3,7 @@ package cn.limitless.cathatmusic.service.impl;
 import cn.limitless.cathatmusic.dao.MusicDao;
 import cn.limitless.cathatmusic.dto.MusicCreateRequest;
 import cn.limitless.cathatmusic.dto.MusicDto;
+import cn.limitless.cathatmusic.dto.MusicUpdateRequest;
 import cn.limitless.cathatmusic.entity.Music;
 import cn.limitless.cathatmusic.enums.MusicStatus;
 import cn.limitless.cathatmusic.exception.BizException;
@@ -49,5 +50,20 @@ public class MusicServiceImpl extends ServiceImpl<MusicDao, Music> implements Mu
 		} else {
 			throw new BizException(ExceptionType.MUSIC_INSERT_ERROR);
 		}
+	}
+
+	@Override
+	public MusicDto update(String id, MusicUpdateRequest musicUpdateRequest) {
+		final Music oldMusic = this.musicDao.selectById(id);
+		if (oldMusic == null) {
+			throw new BizException(ExceptionType.MUSIC_NOT_FOUND);
+		}
+		final Music music = this.musicMapper.updateEntity(oldMusic, musicUpdateRequest);
+		final int result = this.musicDao.updateById(music);
+		if (result == 1) {
+			final Music resultMusic = this.musicDao.selectById(id);
+			return this.musicMapper.toDto(resultMusic);
+		}
+		throw new BizException(ExceptionType.MUSIC_UPDATE_ERROR);
 	}
 }

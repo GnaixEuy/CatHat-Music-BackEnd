@@ -1,15 +1,13 @@
 package cn.limitless.cathatmusic.controller;
 
 import cn.limitless.cathatmusic.dto.MusicCreateRequest;
+import cn.limitless.cathatmusic.dto.MusicUpdateRequest;
 import cn.limitless.cathatmusic.mapper.MusicMapper;
 import cn.limitless.cathatmusic.service.MusicService;
 import cn.limitless.cathatmusic.vo.MusicVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -37,5 +35,12 @@ public class MusicController {
 	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public MusicVo create(@Validated @RequestBody MusicCreateRequest musicCreateRequest) {
 		return this.musicMapper.toVo(this.musicService.create(musicCreateRequest));
+	}
+
+	@PostMapping(value = {"/{id}"})
+	@RolesAllowed(value = {"ROLE_ADMIN"})
+	public MusicVo update(@PathVariable String id, @Validated @RequestBody MusicUpdateRequest musicUpdateRequest) {
+		return this.musicMapper.toVo(
+				this.musicService.update(id, musicUpdateRequest));
 	}
 }

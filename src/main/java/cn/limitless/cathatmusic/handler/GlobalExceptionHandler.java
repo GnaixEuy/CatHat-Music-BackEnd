@@ -3,6 +3,7 @@ package cn.limitless.cathatmusic.handler;
 import cn.limitless.cathatmusic.exception.BizException;
 import cn.limitless.cathatmusic.exception.ErrorResponse;
 import cn.limitless.cathatmusic.exception.ExceptionType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,33 +22,41 @@ import java.util.List;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value = BizException.class)
-	public ErrorResponse bizExceptionHandler(BizException exception) {
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public ErrorResponse bizExceptionHandler(BizException e) {
 		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setCode(exception.getCode());
-		errorResponse.setMessage(exception.getMessage());
-		errorResponse.setTrace(exception.getStackTrace());
+		errorResponse.setCode(e.getCode());
+		errorResponse.setMessage(e.getMessage());
+		errorResponse.setTrace(e.getStackTrace());
+		log.error(e.getMessage());
 		return errorResponse;
 	}
 
 
 	@ExceptionHandler(value = Exception.class)
-	public ErrorResponse exceptionHandler(Exception exception) {
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public ErrorResponse exceptionHandler(Exception e) {
 		ErrorResponse errorResponse = new ErrorResponse();
 		errorResponse.setCode(ExceptionType.INNER_ERROR.getCode());
 		errorResponse.setMessage(ExceptionType.INNER_ERROR.getMessage());
+		e.printStackTrace();
+		log.error(e.getMessage());
 		return errorResponse;
 	}
 
 
 	@ExceptionHandler(value = AccessDeniedException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
-	public ErrorResponse accessDeniedHandler(Exception exception) {
+	public ErrorResponse accessDeniedHandler(Exception e) {
 		ErrorResponse errorResponse = new ErrorResponse();
 		errorResponse.setCode(ExceptionType.FORBIDDEN.getCode());
 		errorResponse.setMessage(ExceptionType.FORBIDDEN.getMessage());
+		e.printStackTrace();
+		log.error(e.getMessage());
 		return errorResponse;
 	}
 
@@ -56,11 +65,13 @@ public class GlobalExceptionHandler {
 	public List<ErrorResponse> bizExceptionHandler(MethodArgumentNotValidException e) {
 
 		List<ErrorResponse> errorResponses = new ArrayList<>();
+		e.printStackTrace();
 		e.getBindingResult().getAllErrors().forEach((error) -> {
 			ErrorResponse errorResponse = new ErrorResponse();
 			errorResponse.setCode(ExceptionType.BAD_REQUEST.getCode());
 			errorResponse.setMessage(error.getDefaultMessage());
 			errorResponses.add(errorResponse);
+			log.error(error.getDefaultMessage());
 		});
 		return errorResponses;
 	}

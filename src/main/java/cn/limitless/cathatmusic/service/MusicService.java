@@ -2,6 +2,7 @@ package cn.limitless.cathatmusic.service;
 
 import cn.limitless.cathatmusic.dto.MusicCreateRequest;
 import cn.limitless.cathatmusic.dto.MusicDto;
+import cn.limitless.cathatmusic.dto.MusicUpdateRequest;
 import cn.limitless.cathatmusic.entity.Music;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,4 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface MusicService extends IService<Music> {
 
 	MusicDto create(MusicCreateRequest musicCreateRequest);
+
+	MusicDto update(String id, MusicUpdateRequest musicUpdateRequest);
 }
