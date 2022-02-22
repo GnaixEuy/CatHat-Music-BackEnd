@@ -5,6 +5,7 @@ import cn.limitless.cathatmusic.mapper.MusicMapper;
 import cn.limitless.cathatmusic.service.MusicService;
 import cn.limitless.cathatmusic.vo.MusicVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class MusicController {
 
 	@PostMapping(value = {""})
 	@RolesAllowed(value = {"ROLE_ADMIN"})
-	public MusicVo create(@RequestBody MusicCreateRequest musicCreateRequest) {
+	public MusicVo create(@Validated @RequestBody MusicCreateRequest musicCreateRequest) {
 		return this.musicMapper.toVo(this.musicService.create(musicCreateRequest));
 	}
 }
