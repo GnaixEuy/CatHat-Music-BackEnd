@@ -1,6 +1,7 @@
 package cn.limitless.cathatmusic.entity;
 
 import cn.limitless.cathatmusic.enums.MusicStatus;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
 /**
@@ -15,6 +16,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName(value = "music")
 public class Music extends AbstractEntity {
 
 	private String name;

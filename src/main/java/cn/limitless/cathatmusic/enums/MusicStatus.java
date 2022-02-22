@@ -20,9 +20,9 @@ public enum MusicStatus {
 	/**
 	 *
 	 */
-	DRAFT,
-	PUBLISH,
-	CLOSED;
+	DRAFT(1, "草稿"),
+	PUBLISH(2, "发行"),
+	CLOSED(3, "下架");
 
 
 	@EnumValue

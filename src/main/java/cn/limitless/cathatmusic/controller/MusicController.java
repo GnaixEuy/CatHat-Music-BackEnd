@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -19,12 +19,12 @@ import javax.annotation.security.RolesAllowed;
  * @date 2022/2/21
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-@ResponseBody
+@RestController
 @RequestMapping(value = {"/musics"})
 public class MusicController {
 
-	private MusicService musicService;
-	private MusicMapper musicMapper;
+	private final MusicService musicService;
+	private final MusicMapper musicMapper;
 
 	@Autowired
 	public MusicController(MusicService musicService, MusicMapper musicMapper) {
@@ -35,7 +35,6 @@ public class MusicController {
 	@PostMapping(value = {""})
 	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public MusicVo create(@RequestBody MusicCreateRequest musicCreateRequest) {
-
-		return null;
+		return this.musicMapper.toVo(this.musicService.create(musicCreateRequest));
 	}
 }
