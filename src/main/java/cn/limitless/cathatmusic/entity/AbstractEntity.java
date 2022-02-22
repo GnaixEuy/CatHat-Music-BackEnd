@@ -26,4 +26,5 @@ public class AbstractEntity {
 
 	@TableField(value = "updated_time", fill = FieldFill.INSERT_UPDATE)
 	private Date updatedTime;
+
 }

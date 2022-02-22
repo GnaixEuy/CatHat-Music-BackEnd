@@ -29,7 +29,7 @@ public class MybatisDateHandler implements MetaObjectHandler {
 	@Override
 	public void updateFill(MetaObject metaObject) {
 		log.info("开始更新");
-		this.strictUpdateFill(metaObject, "updatedTime", Date.class, new Date());
+		this.setFieldValByName("updatedTime", new Date(), metaObject);
 		log.info("结束更新");
 	}
 }
