@@ -54,10 +54,7 @@ public class MusicServiceImpl extends ServiceImpl<MusicDao, Music> implements Mu
 
 	@Override
 	public MusicDto update(String id, MusicUpdateRequest musicUpdateRequest) {
-		final Music oldMusic = this.musicDao.selectById(id);
-		if (oldMusic == null) {
-			throw new BizException(ExceptionType.MUSIC_NOT_FOUND);
-		}
+		final Music oldMusic = this.getMusic(id);
 		final Music music = this.musicMapper.updateEntity(oldMusic, musicUpdateRequest);
 		final int result = this.musicDao.updateById(music);
 		if (result == 1) {
@@ -65,5 +62,33 @@ public class MusicServiceImpl extends ServiceImpl<MusicDao, Music> implements Mu
 			return this.musicMapper.toDto(resultMusic);
 		}
 		throw new BizException(ExceptionType.MUSIC_UPDATE_ERROR);
+	}
+
+	@Override
+	public void publish(String id) {
+		this.changeStatus(id, MusicStatus.PUBLISH);
+	}
+
+	@Override
+	public void close(String id) {
+		this.changeStatus(id, MusicStatus.CLOSED);
+	}
+
+	private void changeStatus(String id, MusicStatus musicStatus) {
+		final Music music = this.getMusic(id);
+		music.setStatus(musicStatus);
+		final int result = this.musicDao.updateById(music);
+		if (result != 1) {
+			throw new BizException(ExceptionType.MUSIC_UPDATE_ERROR);
+		}
+	}
+
+
+	private Music getMusic(String id) {
+		final Music music = this.musicDao.selectById(id);
+		if (music == null) {
+			throw new BizException(ExceptionType.MUSIC_NOT_FOUND);
+		}
+		return music;
 	}
 }

@@ -10,6 +10,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -46,4 +48,25 @@ public class MusicController {
 		return this.musicMapper.toVo(
 				this.musicService.update(id, musicUpdateRequest));
 	}
+
+	@GetMapping(value = {""})
+	@RolesAllowed(value = {"ROLE_ADMIN"})
+	public List<MusicVo> list() {
+		return this.musicService.list()
+				.stream()
+				.map(this.musicMapper::toDto)
+				.map(this.musicMapper::toVo)
+				.collect(Collectors.toList());
+	}
+
+	@PostMapping(value = {"/{id}/publish"})
+	public void publish(@PathVariable String id) {
+		this.musicService.publish(id);
+	}
+
+	@PostMapping(value = {"/{id}/close"})
+	public void close(@PathVariable String id) {
+		this.musicService.close(id);
+	}
+
 }

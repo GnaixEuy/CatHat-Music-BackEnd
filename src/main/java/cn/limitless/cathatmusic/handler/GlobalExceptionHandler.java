@@ -36,7 +36,6 @@ public class GlobalExceptionHandler {
 		return errorResponse;
 	}
 
-
 	@ExceptionHandler(value = Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorResponse exceptionHandler(Exception e) {
@@ -47,7 +46,6 @@ public class GlobalExceptionHandler {
 		log.error(e.getMessage());
 		return errorResponse;
 	}
-
 
 	@ExceptionHandler(value = AccessDeniedException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)

@@ -18,4 +18,9 @@ public interface MusicService extends IService<Music> {
 	MusicDto create(MusicCreateRequest musicCreateRequest);
 
 	MusicDto update(String id, MusicUpdateRequest musicUpdateRequest);
+
+	void publish(String id);
+
+	void close(String id);
+
 }
