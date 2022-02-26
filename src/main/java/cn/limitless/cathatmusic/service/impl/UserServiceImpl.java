@@ -19,6 +19,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,18 +41,12 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService {
 
 	private final UserMapper userMapper;
 	private final UserDao userDao;
 	private final PasswordEncoder passwordEncoder;
-
-	@Autowired
-	public UserServiceImpl(UserMapper userMapper, UserDao userDao, PasswordEncoder passwordEncoder) {
-		this.userMapper = userMapper;
-		this.userDao = userDao;
-		this.passwordEncoder = passwordEncoder;
-	}
 
 	@Override
 	public Page<UserDto> search(Page page) {

@@ -1,13 +1,10 @@
 package cn.limitless.cathatmusic.dto;
 
-import cn.limitless.cathatmusic.enums.FileStatus;
-import cn.limitless.cathatmusic.enums.FileType;
-import cn.limitless.cathatmusic.enums.Storage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -19,26 +16,18 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileDto {
+public class FileUploadRequest {
 
-	private String id;
-
+	@NotBlank(message = "文件名不能为空")
 	private String name;
-
-	private String key;
-
-	private String ext;
 
 	private Integer size;
 
-	private FileType type;
+	@NotBlank(message = "后缀名不能为空")
+	private String ext;
 
-	private Storage storage;
+	@NotBlank(message = "key不能为空")
+	private String key;
 
-	private FileStatus fileStatus;
-
-	private java.util.Date createdTime;
-
-	private Date updatedTime;
 
 }

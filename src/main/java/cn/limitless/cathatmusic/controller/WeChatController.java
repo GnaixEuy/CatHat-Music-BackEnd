@@ -1,5 +1,6 @@
 package cn.limitless.cathatmusic.controller;
 
+import lombok.RequiredArgsConstructor;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.api.WxMpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,10 @@ import javax.websocket.server.PathParam;
  */
 @RestController
 @RequestMapping(value = {"/weixin"})
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class WeChatController {
 
-	private final WxMpService wxMpService;
-
-	@Autowired
-	public WeChatController(WxMpService wxMpService) {
-		this.wxMpService = wxMpService;
-	}
+	private WxMpService wxMpService;
 
 	@GetMapping("/auth_url")
 	public String getAuthUrl(@PathParam("redirectUrl") String redirectUrl) {

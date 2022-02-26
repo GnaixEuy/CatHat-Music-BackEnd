@@ -2,6 +2,7 @@ package cn.limitless.cathatmusic.controller;
 
 import cn.limitless.cathatmusic.dto.TokenCreateRequest;
 import cn.limitless.cathatmusic.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,14 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = {"/tokens"})
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class TokenController {
 
 	private final UserService userService;
-
-	@Autowired
-	public TokenController(UserService userService) {
-		this.userService = userService;
-	}
 
 	@PostMapping(value = {""})
 	public String create(@RequestBody TokenCreateRequest tokenCreateRequest) {

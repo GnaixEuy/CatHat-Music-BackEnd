@@ -25,6 +25,8 @@ public class File extends AbstractEntity {
 
 	private String ext;
 
+	private Integer size;
+
 	private FileType type;
 
 	private Storage storage;

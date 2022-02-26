@@ -12,6 +12,7 @@ import cn.limitless.cathatmusic.mapper.MusicMapper;
 import cn.limitless.cathatmusic.service.MusicService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,16 +26,11 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class MusicServiceImpl extends ServiceImpl<MusicDao, Music> implements MusicService {
 
 	private final MusicDao musicDao;
 	private final MusicMapper musicMapper;
-
-	@Autowired
-	public MusicServiceImpl(MusicDao musicDao, MusicMapper musicMapper) {
-		this.musicDao = musicDao;
-		this.musicMapper = musicMapper;
-	}
 
 	@Override
 	public MusicDto create(MusicCreateRequest musicCreateRequest) {

@@ -5,6 +5,7 @@ import cn.limitless.cathatmusic.dto.MusicUpdateRequest;
 import cn.limitless.cathatmusic.mapper.MusicMapper;
 import cn.limitless.cathatmusic.service.MusicService;
 import cn.limitless.cathatmusic.vo.MusicVo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,16 +23,11 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping(value = {"/musics"})
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class MusicController {
 
 	private final MusicService musicService;
 	private final MusicMapper musicMapper;
-
-	@Autowired
-	public MusicController(MusicService musicService, MusicMapper musicMapper) {
-		this.musicService = musicService;
-		this.musicMapper = musicMapper;
-	}
 
 	@PostMapping(value = {""})
 	@RolesAllowed(value = {"ROLE_ADMIN"})
