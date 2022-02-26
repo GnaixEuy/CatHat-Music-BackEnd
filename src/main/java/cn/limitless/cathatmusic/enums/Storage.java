@@ -1,5 +1,7 @@
 package cn.limitless.cathatmusic.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +16,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+// TODO 待探究
 public enum Storage {
 	OSS,
 	COS;
+
+	@EnumValue
+	private Integer key;
+
+	@JsonValue
+	private String display;
+
 }

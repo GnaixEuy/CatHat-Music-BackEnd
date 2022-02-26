@@ -21,10 +21,11 @@ public enum FileType {
 	/**
 	 * 用于分辨文件类型的枚举值
 	 */
+	OTHER(0, "其他"),
 	AUDIO(1, "音频"),
 	IMAGE(2, "图像"),
-	VIDEO(3, "视频"),
-	OTHER(4, "其他");
+	VIDEO(3, "视频");
+
 
 	@EnumValue
 	private Integer key;

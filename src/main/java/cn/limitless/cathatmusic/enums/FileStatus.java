@@ -1,5 +1,7 @@
 package cn.limitless.cathatmusic.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public enum FileStatus {
-	UPLOADING,
-	UPLOADED,
-	CANCEL;
+	/**
+	 *
+	 */
+	UPLOADING(1, "上传中"),
+	UPLOADED(2, "完成"),
+	CANCEL(3, "取消");
+
+
+	@EnumValue
+	private Integer key;
+
+	@JsonValue
+	private String display;
 }
