@@ -40,7 +40,7 @@ public class MusicController {
 	}
 
 	/**
-	 * Todo 自动更新时间bug未修复
+	 * 时间自动更新bug 已修复，待全面测试
 	 */
 	@PostMapping(value = {"/{id}"})
 	@RolesAllowed(value = {"ROLE_ADMIN"})

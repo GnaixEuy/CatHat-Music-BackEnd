@@ -16,7 +16,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "music")
+@TableName(value = "music", resultMap = "musicResultMap")
 public class Music extends AbstractEntity {
 
 	private String name;
