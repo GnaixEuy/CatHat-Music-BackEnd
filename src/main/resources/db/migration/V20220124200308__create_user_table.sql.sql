@@ -14,4 +14,4 @@ CREATE TABLE user
     updated_time datetime(6) NOT NULL COMMENT '更新时间',
     CONSTRAINT uk_user_username
         UNIQUE (username)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT '用户表';
+) ENGINE=InnoDB CDEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT '用户表';

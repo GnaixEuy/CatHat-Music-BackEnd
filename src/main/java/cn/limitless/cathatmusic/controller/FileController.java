@@ -6,7 +6,9 @@ import cn.limitless.cathatmusic.service.FileService;
 import cn.limitless.cathatmusic.vo.FileUploadVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,12 +25,13 @@ import javax.annotation.security.RolesAllowed;
 @RolesAllowed(value = {"ROLE_ADMIN"})
 @RestController
 @RequestMapping(value = {"/files"})
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class FileController {
 
 	private final FileService fileService;
 	private final FileUploadMapper fileUploadMapper;
 
+	@PostMapping(value = {"/upload_init"})
 	public FileUploadVo initUpload(@Validated @RequestBody FileUploadRequest fileUploadRequest) {
 		return this.fileUploadMapper.toVo(this.fileService.initUpload(fileUploadRequest));
 	}

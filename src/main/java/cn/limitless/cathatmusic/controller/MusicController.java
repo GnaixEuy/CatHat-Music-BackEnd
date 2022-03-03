@@ -7,6 +7,7 @@ import cn.limitless.cathatmusic.service.MusicService;
 import cn.limitless.cathatmusic.vo.MusicVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping(value = {"/musics"})
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class MusicController {
 
 	private final MusicService musicService;

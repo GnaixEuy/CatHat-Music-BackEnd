@@ -31,5 +31,5 @@ public class File extends AbstractEntity {
 
 	private Storage storage;
 
-	private FileStatus fileStatus;
+	private FileStatus fileStatus = FileStatus.UPLOADING;
 }

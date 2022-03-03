@@ -103,7 +103,12 @@
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-mp</artifactId>
-            <version>4.2.0</version>
+            <version>4.2.5.B</version>
+        </dependency>
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos-sts_api</artifactId>
+            <version>3.1.0</version>
         </dependency>
     </dependencies>
 
