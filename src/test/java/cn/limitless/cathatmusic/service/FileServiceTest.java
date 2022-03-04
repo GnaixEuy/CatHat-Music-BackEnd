@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Lazy;
  */
 @SpringBootTest
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
+@Transactional
 class FileServiceTest {
 
 	private final FileService fileService;
