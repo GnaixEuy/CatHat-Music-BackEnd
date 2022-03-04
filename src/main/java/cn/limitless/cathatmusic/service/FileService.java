@@ -1,5 +1,6 @@
 package cn.limitless.cathatmusic.service;
 
+import cn.limitless.cathatmusic.dto.FileDto;
 import cn.limitless.cathatmusic.dto.FileUploadDto;
 import cn.limitless.cathatmusic.dto.FileUploadRequest;
 import cn.limitless.cathatmusic.entity.File;
@@ -16,4 +17,5 @@ public interface FileService extends IService<File> {
 
 	FileUploadDto initUpload(FileUploadRequest fileUploadRequest);
 
+	FileDto finishUpload(String id);
 }

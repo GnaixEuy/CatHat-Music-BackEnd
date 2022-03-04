@@ -1,31 +1,29 @@
-package cn.limitless.cathatmusic.dto;
+package cn.limitless.cathatmusic.vo;
 
 import cn.limitless.cathatmusic.enums.FileStatus;
 import cn.limitless.cathatmusic.enums.FileType;
 import cn.limitless.cathatmusic.enums.Storage;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.Date;
+import lombok.EqualsAndHashCode;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
  *
  * @author GnaixEuy
- * @date 2022/2/26
+ * @date 2022/3/4
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class FileDto {
-
-	private String id;
+public class FileVo extends BaseVo {
 
 	private String name;
 
 	private String key;
+
+	private String uri;
+
+	private Storage storage;
 
 	private String ext;
 
@@ -33,12 +31,6 @@ public class FileDto {
 
 	private FileType type;
 
-	private Storage storage;
-
-	private FileStatus fileStatus;
-
-	private java.util.Date createdTime;
-
-	private Date updatedTime;
+	private FileStatus status;
 
 }

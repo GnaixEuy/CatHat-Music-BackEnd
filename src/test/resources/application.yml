@@ -7,8 +7,8 @@ spring:
       username: ${MYSQL_USER_NAME}
       password: ${MYSQL_PASSWORD}
       driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:h2:mem:music;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
-    username: GnaixEuy
+    url: jdbc:h2:mem:CatHatMusic;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    username: sa
     driver-class-name: org.h2.Driver
     password:
   sql:
@@ -25,6 +25,14 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+springfox:
+  documentation:
+    enabled: false
+    swagger:
+      v2:
+        enabled: false
+    swagger-ui:
+      enabled: false
 mybatis-plus:
   mapper-locations: classpath:cn/limitless/cathatmusic/dao/impl/*.xml
   type-enums-package: cn.limitless.cathatmusic.enums
@@ -37,18 +45,10 @@ weixin:
     app:
       id: ${MP_APP_ID}
       secret: ${MP_APP_SECRET}
-
 cos:
   bucket: ${COS_BUCKET}
   secret-id: ${COS_SECRET_ID}
   secret-key: ${COS_SECRET_KEY}
   region: ${COS_REGION}
-springfox:
-  documentation:
-    enabled: false
-    swagger:
-      v2:
-        enabled: false
-    swagger-ui:
-      enabled: false
+
 

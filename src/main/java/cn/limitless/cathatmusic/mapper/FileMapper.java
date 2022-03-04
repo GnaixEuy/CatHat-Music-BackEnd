@@ -1,7 +1,9 @@
 package cn.limitless.cathatmusic.mapper;
 
+import cn.limitless.cathatmusic.dto.FileDto;
 import cn.limitless.cathatmusic.dto.FileUploadRequest;
 import cn.limitless.cathatmusic.entity.File;
+import cn.limitless.cathatmusic.vo.FileVo;
 import org.mapstruct.Mapper;
 
 /**
@@ -14,4 +16,8 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface FileMapper {
 	File createEntity(FileUploadRequest fileUploadRequest);
+
+	FileVo toVo(FileDto fileDto);
+
+	FileDto toDto(File file);
 }

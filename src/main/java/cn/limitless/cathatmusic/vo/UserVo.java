@@ -2,6 +2,7 @@ package cn.limitless.cathatmusic.vo;
 
 import cn.limitless.cathatmusic.enums.Gender;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -12,10 +13,9 @@ import java.util.List;
  * @date 2022/1/25
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class UserVo {
-
-	private String id;
+public class UserVo extends BaseVo {
 
 	private String username;
 

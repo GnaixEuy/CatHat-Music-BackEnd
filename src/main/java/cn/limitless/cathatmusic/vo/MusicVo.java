@@ -1,10 +1,8 @@
 package cn.limitless.cathatmusic.vo;
 
 import cn.limitless.cathatmusic.enums.MusicStatus;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-
-import java.util.Date;
+import lombok.EqualsAndHashCode;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -13,10 +11,9 @@ import java.util.Date;
  * @date 2022/2/21
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class MusicVo {
-
-	private String id;
+public class MusicVo extends BaseVo {
 
 	private String name;
 
@@ -24,10 +21,4 @@ public class MusicVo {
 
 	private String description;
 
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyyMMddHHmmss")
-	private Date createdTime;
-
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyyMMddHHmmss")
-	private Date updatedTime;
-	
 }

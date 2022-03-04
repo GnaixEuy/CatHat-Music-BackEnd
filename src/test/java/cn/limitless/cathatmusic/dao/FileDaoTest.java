@@ -33,7 +33,7 @@ class FileDaoTest {
 		file.setExt("其他");
 		file.setName("测试");
 		file.setStorage(Storage.COS);
-		file.setSize(333);
+		file.setSize(333L);
 		final int result = this.fileDao.insert(file);
 		Assertions.assertEquals(result, 1);
 	}

@@ -1,9 +1,12 @@
 package cn.limitless.cathatmusic.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.limitless.cathatmusic.dao.FileDao;
+import cn.limitless.cathatmusic.dto.FileDto;
 import cn.limitless.cathatmusic.dto.FileUploadDto;
 import cn.limitless.cathatmusic.dto.FileUploadRequest;
 import cn.limitless.cathatmusic.entity.File;
+import cn.limitless.cathatmusic.enums.FileStatus;
 import cn.limitless.cathatmusic.enums.Storage;
 import cn.limitless.cathatmusic.exception.BizException;
 import cn.limitless.cathatmusic.exception.ExceptionType;
@@ -51,10 +54,24 @@ public class FileServiceImpl extends ServiceImpl<FileDao, File> implements FileS
 			// 通过接口获取STS令牌
 			final FileUploadDto fileUploadDto = this.storageServiceMap.get(getDefaultStorage().name()).initFileUpload();
 			fileUploadDto.setKey(file.getKey());
+			fileUploadDto.setFileId(file.getId());
 			return fileUploadDto;
 		} else {
 			throw new BizException(ExceptionType.INNER_ERROR);
 		}
+	}
+
+	@Override
+	public FileDto finishUpload(String id) {
+		final File file = this.fileDao.selectById(id);
+		if (ObjectUtil.isNull(file)) {
+			throw new BizException(ExceptionType.FILE_BOT_FOUND);
+		}
+		//TODO: 只有上传者才能给更新finish； 鉴权
+
+		//TODO: 验证远程文件是否存在
+		file.setFileStatus(FileStatus.UPLOADED);
+		return this.fileMapper.toDto(file);
 	}
 
 

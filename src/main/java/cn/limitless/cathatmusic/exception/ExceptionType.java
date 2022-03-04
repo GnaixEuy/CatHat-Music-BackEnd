@@ -28,7 +28,8 @@ public enum ExceptionType {
 	MUSIC_NOT_FOUND(40402002, "音乐信息不存在"),
 	MUSIC_INSERT_ERROR(40002077, "创建音乐信息失败"),
 	MUSIC_UPDATE_ERROR(50002040, "音乐更新失败"),
-	MUSIC_DELETE_ERROR(50002070, "音乐删除失败");
+	MUSIC_DELETE_ERROR(50002070, "音乐删除失败"),
+	FILE_BOT_FOUND(40403001, "文件不存在");
 
 	private final Integer code;
 	private final String message;

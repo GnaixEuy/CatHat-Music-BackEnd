@@ -2,10 +2,12 @@ package cn.limitless.cathatmusic.dao;
 
 import cn.limitless.cathatmusic.entity.User;
 import cn.limitless.cathatmusic.enums.Gender;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -21,11 +23,11 @@ import java.util.Map;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @SpringBootTest
+@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 @Transactional
 public class UserDaoTest {
 
-	@Autowired
-	private UserDao userDao;
+	private final UserDao userDao;
 
 	@Test
 	public void testSelectList() {

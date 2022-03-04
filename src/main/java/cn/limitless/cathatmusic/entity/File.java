@@ -29,7 +29,7 @@ public class File extends AbstractEntity {
 
 	private String ext;
 
-	private Integer size;
+	private Long size;
 
 	private FileType type;
 
