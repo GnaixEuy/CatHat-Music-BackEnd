@@ -44,7 +44,10 @@ public class FileServiceImpl extends ServiceImpl<FileDao, File> implements FileS
 		if (result == 1) {
 			final String key = fileUploadRequest.getKey();
 			final String name = fileUploadRequest.getName();
-			final File file = this.fileDao.selectOne(Wrappers.<File>lambdaQuery().eq(File::getKey, key).eq(File::getName, name));
+			final File file = this.fileDao.selectOne(
+					Wrappers.<File>lambdaQuery()
+							.eq(File::getKey, key)
+							.eq(File::getName, name));
 			// 通过接口获取STS令牌
 			final FileUploadDto fileUploadDto = this.storageServiceMap.get(getDefaultStorage().name()).initFileUpload();
 			fileUploadDto.setKey(file.getKey());

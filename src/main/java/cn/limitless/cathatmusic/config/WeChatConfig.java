@@ -17,10 +17,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WeChatConfig {
 
-	@Value(value = "${weixin.mp.app-id}")
+	@Value(value = "${weixin.mp.app.id}")
 	private String appId;
 
-	@Value(value = "${weixin.mp.app-secret}")
+	@Value(value = "${weixin.mp.app.secret}")
 	private String appSecret;
 
 	@Bean

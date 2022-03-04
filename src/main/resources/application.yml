@@ -30,8 +30,17 @@ mybatis-plus:
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
     map-underscore-to-camel-case: false
   type-aliases-package: cn.limitless.cathatmusic.entity
-
 weixin:
   mp:
-    app-id: wxb8457d2ef6571017
-    app-secret: 442f435c4f5feab881cf27b3c6c49ca0
+    app:
+      id: ${MP_APP_ID}
+      secret: ${MP_APP_SECRET}
+
+cos:
+  bucket: ${COS_BUCKET}
+  secret-id: ${COS_SECRET_ID}
+  secret-key: ${COS_SECRET_KEY}
+  region: ${COS_REGION}
+
+
+
