@@ -20,8 +20,11 @@ spring:
   h2:
     console:
       enabled: true
-  profiles:
-    active: dev
+  config:
+    import: file:.env.dev[.properties]
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 mybatis-plus:
   mapper-locations: classpath:cn/limitless/cathatmusic/dao/impl/*.xml
   type-enums-package: cn.limitless.cathatmusic.enums
@@ -29,5 +32,23 @@ mybatis-plus:
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
     map-underscore-to-camel-case: false
   type-aliases-package: cn.limitless.cathatmusic.entity
+weixin:
+  mp:
+    app:
+      id: ${MP_APP_ID}
+      secret: ${MP_APP_SECRET}
 
+cos:
+  bucket: ${COS_BUCKET}
+  secret-id: ${COS_SECRET_ID}
+  secret-key: ${COS_SECRET_KEY}
+  region: ${COS_REGION}
+springfox:
+  documentation:
+    enabled: false
+    swagger:
+      v2:
+        enabled: false
+    swagger-ui:
+      enabled: false
 

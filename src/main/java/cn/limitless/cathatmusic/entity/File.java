@@ -3,6 +3,8 @@ package cn.limitless.cathatmusic.entity;
 import cn.limitless.cathatmusic.enums.FileStatus;
 import cn.limitless.cathatmusic.enums.FileType;
 import cn.limitless.cathatmusic.enums.Storage;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
 /**
@@ -17,10 +19,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
+@TableName(value = "file", resultMap = "fileResultMap")
 public class File extends AbstractEntity {
 
 	private String name;
 
+	@TableField(value = "file_key")
 	private String key;
 
 	private String ext;
@@ -31,5 +35,6 @@ public class File extends AbstractEntity {
 
 	private Storage storage;
 
+	@TableField(value = "status")
 	private FileStatus fileStatus = FileStatus.UPLOADING;
 }
