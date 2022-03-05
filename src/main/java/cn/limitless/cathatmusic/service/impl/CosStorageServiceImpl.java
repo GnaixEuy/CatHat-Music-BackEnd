@@ -9,7 +9,6 @@ import com.tencent.cloud.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.TreeMap;
 
 /**
@@ -19,32 +18,32 @@ import java.util.TreeMap;
  * @date 2022/3/3
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-@Service(value = "COS")
+
+@Service("COS")
 public class CosStorageServiceImpl implements StorageService {
 
-	@Value(value = "${cos.bucket}")
+	@Value("${cos.bucket}")
 	private String bucket;
-	@Value(value = "${cos.secret-id}")
+
+	@Value("${cos.secret-id}")
 	private String secretId;
-	@Value(value = "${cos.secret-key}")
+
+	@Value("${cos.secret-key}")
 	private String secretKey;
-	@Value(value = "${cos.region}")
+
+	@Value("${cos.region}")
 	private String region;
 
 	@Override
 	public FileUploadDto initFileUpload() {
 		try {
-			Long startTime = System.currentTimeMillis();
-			Long expiredTime = new Date(startTime + 1800 * 1000).getTime();
 			Response response = CosStsClient.getCredential(getCosStsConfig());
 			FileUploadDto fileUploadDto = new FileUploadDto();
-			fileUploadDto.setBucket(bucket);
-			fileUploadDto.setRegion(region);
 			fileUploadDto.setSecretId(response.credentials.tmpSecretId);
 			fileUploadDto.setSecretKey(response.credentials.tmpSecretKey);
 			fileUploadDto.setSessionToken(response.credentials.sessionToken);
-//			fileUploadDto.setStartTime(startTime);
-//			fileUploadDto.setExpiredTime(expiredTime);
+			fileUploadDto.setStartTime(response.startTime);
+			fileUploadDto.setExpiredTime(response.expiredTime);
 			return fileUploadDto;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,9 +52,10 @@ public class CosStorageServiceImpl implements StorageService {
 	}
 
 	private TreeMap<String, Object> getCosStsConfig() {
-		final TreeMap<String, Object> config = new TreeMap<String, Object>();
-		config.put("secretId", this.secretId);
-		config.put("secretKey", this.secretKey);
+		TreeMap<String, Object> config = new TreeMap<>();
+		config.put("secretId", secretId);
+		config.put("secretKey", secretKey);
+
 		// 临时密钥有效时长，单位是秒
 		config.put("durationSeconds", 1800);
 		config.put("allowPrefixes", new String[]{

@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.io.IOException;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -21,8 +22,8 @@ import javax.annotation.security.RolesAllowed;
  * @date 2022/2/26
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-@RolesAllowed(value = {"ROLE_ADMIN"})
 @RestController
+@RolesAllowed(value = {"ROLE_ADMIN"})
 @RequestMapping(value = {"/files"})
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class FileController {
@@ -32,7 +33,7 @@ public class FileController {
 	private final FileUploadMapper fileUploadMapper;
 
 	@PostMapping(value = {"/upload_init"})
-	public FileUploadVo initUpload(@Validated @RequestBody FileUploadRequest fileUploadRequest) {
+	public FileUploadVo initUpload(@Validated @RequestBody FileUploadRequest fileUploadRequest) throws IOException {
 		return this.fileUploadMapper.toVo(this.fileService.initUpload(fileUploadRequest));
 	}
 

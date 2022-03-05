@@ -21,6 +21,7 @@ import java.util.List;
  * @date 2022/1/26
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
@@ -61,7 +62,6 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public List<ErrorResponse> bizExceptionHandler(MethodArgumentNotValidException e) {
-
 		List<ErrorResponse> errorResponses = new ArrayList<>();
 		e.printStackTrace();
 		e.getBindingResult().getAllErrors().forEach((error) -> {

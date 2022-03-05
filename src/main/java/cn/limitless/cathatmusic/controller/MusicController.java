@@ -56,11 +56,13 @@ public class MusicController {
 				.collect(Collectors.toList());
 	}
 
+	@RolesAllowed(value = {"ROLE_ADMIN"})
 	@PostMapping(value = {"/{id}/publish"})
 	public void publish(@PathVariable String id) {
 		this.musicService.publish(id);
 	}
 
+	@RolesAllowed(value = {"ROLE_ADMIN"})
 	@PostMapping(value = {"/{id}/close"})
 	public void close(@PathVariable String id) {
 		this.musicService.close(id);

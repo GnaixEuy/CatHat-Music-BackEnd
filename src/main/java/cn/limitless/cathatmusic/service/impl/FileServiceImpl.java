@@ -78,7 +78,8 @@ public class FileServiceImpl extends ServiceImpl<FileDao, File> implements FileS
 	/**
 	 * TODO: 后台设置当前Storage
 	 */
-	private Storage getDefaultStorage() {
+	@Override
+	public Storage getDefaultStorage() {
 		return Storage.COS;
 	}
 

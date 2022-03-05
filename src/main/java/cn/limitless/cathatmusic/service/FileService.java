@@ -4,7 +4,10 @@ import cn.limitless.cathatmusic.dto.FileDto;
 import cn.limitless.cathatmusic.dto.FileUploadDto;
 import cn.limitless.cathatmusic.dto.FileUploadRequest;
 import cn.limitless.cathatmusic.entity.File;
+import cn.limitless.cathatmusic.enums.Storage;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.io.IOException;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -15,7 +18,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface FileService extends IService<File> {
 
-	FileUploadDto initUpload(FileUploadRequest fileUploadRequest);
+	FileUploadDto initUpload(FileUploadRequest fileUploadRequest) throws IOException;
 
 	FileDto finishUpload(String id);
+
+	Storage getDefaultStorage();
 }
