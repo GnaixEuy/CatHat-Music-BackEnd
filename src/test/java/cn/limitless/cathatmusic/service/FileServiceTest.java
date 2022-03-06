@@ -29,7 +29,7 @@ class FileServiceTest {
 	private final FileService fileService;
 
 	@Test
-	void initUpload() {
+	void initUpload() throws IOException {
 		final FileUploadRequest fileUploadRequest = new FileUploadRequest();
 		fileUploadRequest.setName("测试文件名");
 		fileUploadRequest.setExt("mp3");
@@ -44,7 +44,7 @@ class FileServiceTest {
 	}
 
 	@Test
-	void initUploadMaxSize() {
+	void initUploadMaxSize() throws IOException {
 		FileUploadRequest fileUploadRequest = new FileUploadRequest();
 		fileUploadRequest.setName("测试文件名");
 		fileUploadRequest.setExt("mp3");
