@@ -19,4 +19,5 @@ public class MusicCreateRequest {
 
 	private String description;
 
+	private FileDto file;
 }

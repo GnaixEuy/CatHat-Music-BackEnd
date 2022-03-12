@@ -27,7 +27,7 @@ import java.util.List;
 @Setter
 @ToString(callSuper = true)
 @TableName(value = "user", resultMap = "userResultMap")
-public class User extends AbstractEntity implements UserDetails {
+public class User extends BaseEntity implements UserDetails {
 
 	private String username;
 

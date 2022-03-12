@@ -16,7 +16,7 @@ import java.util.Date;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Data
-public class AbstractEntity {
+public class BaseEntity {
 
 	@TableId(type = IdType.ASSIGN_UUID)
 	private String id;

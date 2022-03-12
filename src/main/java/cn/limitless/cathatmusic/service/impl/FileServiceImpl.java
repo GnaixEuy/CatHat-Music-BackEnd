@@ -13,8 +13,9 @@ import cn.limitless.cathatmusic.exception.ExceptionType;
 import cn.limitless.cathatmusic.mapper.FileMapper;
 import cn.limitless.cathatmusic.service.FileService;
 import cn.limitless.cathatmusic.service.StorageService;
+import cn.limitless.cathatmusic.utils.FileTypeTransformer;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -31,8 +32,9 @@ import java.util.Map;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Service
+@Builder
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
-public class FileServiceImpl extends ServiceImpl<FileDao, File> implements FileService {
+public class FileServiceImpl extends BaseService implements FileService {
 
 	private final Map<String, StorageService> storageServiceMap;
 	private final FileDao fileDao;
@@ -41,20 +43,24 @@ public class FileServiceImpl extends ServiceImpl<FileDao, File> implements FileS
 	@Override
 	@Transactional
 	public FileUploadDto initUpload(FileUploadRequest fileUploadRequest) {
-
 		// 创建File 实体
-		final int result = this.fileDao.insert(this.fileMapper.createEntity(fileUploadRequest));
+		final File file = this.fileMapper.createEntity(fileUploadRequest);
+		file.setType(FileTypeTransformer.getFileTypeFromExt(fileUploadRequest.getExt()));
+		file.setStorage(getDefaultStorage());
+		file.setCreatedBy(getCurrentUserEntity());
+		file.setUpdatedBy(getCurrentUserEntity());
+		final int result = this.fileDao.insert(file);
 		if (result == 1) {
 			final String key = fileUploadRequest.getKey();
 			final String name = fileUploadRequest.getName();
-			final File file = this.fileDao.selectOne(
+			final File resultFile = this.fileDao.selectOne(
 					Wrappers.<File>lambdaQuery()
 							.eq(File::getKey, key)
 							.eq(File::getName, name));
 			// 通过接口获取STS令牌
 			final FileUploadDto fileUploadDto = this.storageServiceMap.get(getDefaultStorage().name()).initFileUpload();
-			fileUploadDto.setKey(file.getKey());
-			fileUploadDto.setFileId(file.getId());
+			fileUploadDto.setKey(resultFile.getKey());
+			fileUploadDto.setFileId(resultFile.getId());
 			return fileUploadDto;
 		} else {
 			throw new BizException(ExceptionType.INNER_ERROR);
@@ -67,8 +73,9 @@ public class FileServiceImpl extends ServiceImpl<FileDao, File> implements FileS
 		if (ObjectUtil.isNull(file)) {
 			throw new BizException(ExceptionType.FILE_BOT_FOUND);
 		}
-		//TODO: 只有上传者才能给更新finish； 鉴权
-
+		if (file.getCreatedBy() != getCurrentUserEntity()) {
+			throw new BizException(ExceptionType.FILE_NOT_PERMISSION);
+		}
 		//TODO: 验证远程文件是否存在
 		file.setFileStatus(FileStatus.UPLOADED);
 		return this.fileMapper.toDto(file);

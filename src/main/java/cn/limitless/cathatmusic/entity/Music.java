@@ -17,11 +17,16 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "music", resultMap = "musicResultMap")
-public class Music extends AbstractEntity {
+public class Music extends BaseEntity {
 
 	private String name;
 
 	private MusicStatus status;
 
 	private String description;
+
+	/**
+	 * @Description: TODO: 需要持久层一对一对象映射
+	 */
+	private File file;
 }

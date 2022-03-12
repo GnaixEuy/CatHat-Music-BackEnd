@@ -3,9 +3,7 @@ package cn.limitless.cathatmusic.service;
 import cn.limitless.cathatmusic.dto.FileDto;
 import cn.limitless.cathatmusic.dto.FileUploadDto;
 import cn.limitless.cathatmusic.dto.FileUploadRequest;
-import cn.limitless.cathatmusic.entity.File;
 import cn.limitless.cathatmusic.enums.Storage;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.io.IOException;
 
@@ -16,7 +14,7 @@ import java.io.IOException;
  * @date 2022/2/26
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-public interface FileService extends IService<File> {
+public interface FileService {
 
 	FileUploadDto initUpload(FileUploadRequest fileUploadRequest) throws IOException;
 

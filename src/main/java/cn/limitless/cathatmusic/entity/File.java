@@ -20,7 +20,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @TableName(value = "file", resultMap = "fileResultMap")
-public class File extends AbstractEntity {
+public class File extends TraceableBaseEntity {
 
 	private String name;
 

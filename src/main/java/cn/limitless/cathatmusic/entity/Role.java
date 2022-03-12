@@ -14,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class Role extends AbstractEntity {
+public class Role extends BaseEntity {
 
 	private String name;
 

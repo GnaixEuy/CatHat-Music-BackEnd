@@ -25,10 +25,10 @@ public class CosStorageServiceImpl implements StorageService {
 	@Value("${cos.bucket}")
 	private String bucket;
 
-	@Value("${cos.secret-id}")
+	@Value("${cos.secret.id}")
 	private String secretId;
 
-	@Value("${cos.secret-key}")
+	@Value("${cos.secret.key}")
 	private String secretKey;
 
 	@Value("${cos.region}")

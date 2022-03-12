@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
  *
@@ -36,5 +38,11 @@ class FileDaoTest {
 		file.setSize(333L);
 		final int result = this.fileDao.insert(file);
 		Assertions.assertEquals(result, 1);
+	}
+
+	@Test
+	void select() {
+		final List<File> files = this.fileDao.selectList(null);
+		files.forEach(System.out::println);
 	}
 }

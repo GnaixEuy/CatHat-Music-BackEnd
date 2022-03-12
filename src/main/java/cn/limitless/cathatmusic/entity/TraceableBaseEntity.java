@@ -1,26 +1,26 @@
-package cn.limitless.cathatmusic.vo;
+package cn.limitless.cathatmusic.entity;
 
-import cn.limitless.cathatmusic.enums.MusicStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
  *
  * @author GnaixEuy
- * @date 2022/2/21
+ * @date 2022/3/12
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MusicVo extends BaseVo {
+@AllArgsConstructor
+@NoArgsConstructor
+public class TraceableBaseEntity extends BaseEntity {
 
-	private String name;
+	protected User createdBy;
 
-	private MusicStatus status;
-
-	private String description;
-
-	private FileVo file;
-
+	protected User updatedBy;
+	
 }
