@@ -11,7 +11,6 @@ import cn.limitless.cathatmusic.exception.ExceptionType;
 import cn.limitless.cathatmusic.mapper.MusicMapper;
 import cn.limitless.cathatmusic.service.MusicService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
-public class MusicServiceImpl extends ServiceImpl<MusicDao, Music> implements MusicService {
+public class MusicServiceImpl implements MusicService {
 
 	private final MusicDao musicDao;
 	private final MusicMapper musicMapper;
@@ -39,9 +38,9 @@ public class MusicServiceImpl extends ServiceImpl<MusicDao, Music> implements Mu
 		Music music = this.musicMapper.createEntity(musicCreateRequest);
 		music.setStatus(MusicStatus.DRAFT);
 		log.info("填充状态完成");
-		if (this.save(music)) {
+		if (this.musicDao.insert(music) == 1) {
 			log.info("保存完成");
-			final Music resultMusic = getOne(Wrappers.<Music>lambdaQuery().eq(Music::getName, music.getName()).eq(Music::getDescription, music.getDescription()));
+			final Music resultMusic = this.musicDao.selectOne(Wrappers.<Music>lambdaQuery().eq(Music::getName, music.getName()).eq(Music::getDescription, music.getDescription()));
 			log.info("转换完成");
 			return this.musicMapper.toDto(resultMusic);
 		} else {

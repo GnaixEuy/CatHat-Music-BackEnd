@@ -6,7 +6,6 @@ import cn.limitless.cathatmusic.dto.UserDto;
 import cn.limitless.cathatmusic.dto.UserUpdateRequest;
 import cn.limitless.cathatmusic.entity.User;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -16,16 +15,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @date 2022/1/25
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-public interface UserService extends IService<User>, UserDetailsService {
-
-	Page<UserDto> search(Page page);
+public interface UserService extends UserDetailsService {
 
 	UserDto create(UserCreateRequest userCreateRequest);
 
-	UserDto update(String id, UserUpdateRequest userUpdateRequest);
-
 	@Override
 	User loadUserByUsername(String username);
+
+	UserDto get(String id);
+
+	UserDto update(String id, UserUpdateRequest userUpdateRequest);
+
+	void delete(String id);
+
+	Page<UserDto> search(Page pageable);
 
 	String createToken(TokenCreateRequest tokenCreateRequest);
 

@@ -3,7 +3,6 @@ package cn.limitless.cathatmusic.controller;
 import cn.limitless.cathatmusic.dto.UserCreateRequest;
 import cn.limitless.cathatmusic.dto.UserDto;
 import cn.limitless.cathatmusic.dto.UserUpdateRequest;
-import cn.limitless.cathatmusic.entity.User;
 import cn.limitless.cathatmusic.exception.BizException;
 import cn.limitless.cathatmusic.exception.ExceptionType;
 import cn.limitless.cathatmusic.mapper.UserMapper;
@@ -69,11 +68,11 @@ public class UserController {
 
 	@GetMapping(value = {"/{id}"})
 	public UserVo get(@PathVariable String id) {
-		final User user = this.userService.getById(id);
-		if (user == null) {
+		final UserDto userDto = this.userService.get(id);
+		if (userDto == null) {
 			throw new BizException(ExceptionType.USER_NOT_FOUND);
 		} else {
-			return this.userMapper.toVo(this.userMapper.toDto(user));
+			return this.userMapper.toVo(userDto);
 		}
 	}
 
@@ -90,10 +89,7 @@ public class UserController {
 	@DeleteMapping(value = {"/{id}"})
 	@RolesAllowed(value = {"ROLE_ADMIN"})
 	void delete(@PathVariable String id) {
-		final boolean success = this.userService.removeById(id);
-		if (!success) {
-			throw new BizException(ExceptionType.USER_DELETE_ERROR);
-		}
+		this.userService.delete(id);
 	}
 
 	@GetMapping(value = {"/me"})

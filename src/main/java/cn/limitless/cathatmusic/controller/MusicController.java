@@ -5,6 +5,7 @@ import cn.limitless.cathatmusic.dto.MusicUpdateRequest;
 import cn.limitless.cathatmusic.mapper.MusicMapper;
 import cn.limitless.cathatmusic.service.MusicService;
 import cn.limitless.cathatmusic.vo.MusicVo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -12,8 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -46,24 +45,33 @@ public class MusicController {
 				this.musicService.update(id, musicUpdateRequest));
 	}
 
-	@GetMapping(value = {""})
+//	@GetMapping(value = {""})
+//	public List<MusicVo> list() {
+//		return this.musicService.list()
+//				.stream()
+//				.map(this.musicMapper::toDto)
+//				.map(this.musicMapper::toVo)
+//				.collect(Collectors.toList());
+//	}
+
+	/**
+	 * Todo: 未完成 post请求; 参数问题
+	 */
+	@PostMapping("/search")
 	@RolesAllowed(value = {"ROLE_ADMIN"})
-	public List<MusicVo> list() {
-		return this.musicService.list()
-				.stream()
-				.map(this.musicMapper::toDto)
-				.map(this.musicMapper::toVo)
-				.collect(Collectors.toList());
+	public Page<MusicVo> search(@RequestBody(required = false) Object searchFilter) {
+//		return musicService.search(searchFilter).map(musicMapper::toVo);
+		return null;
 	}
 
-	@RolesAllowed(value = {"ROLE_ADMIN"})
 	@PostMapping(value = {"/{id}/publish"})
+	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public void publish(@PathVariable String id) {
 		this.musicService.publish(id);
 	}
 
-	@RolesAllowed(value = {"ROLE_ADMIN"})
 	@PostMapping(value = {"/{id}/close"})
+	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public void close(@PathVariable String id) {
 		this.musicService.close(id);
 	}

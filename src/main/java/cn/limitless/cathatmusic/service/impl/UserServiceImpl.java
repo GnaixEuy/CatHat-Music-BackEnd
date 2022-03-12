@@ -18,13 +18,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +40,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
-public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService {
+public class UserServiceImpl extends BaseService implements UserService {
 
 	private final UserMapper userMapper;
 	private final UserDao userDao;
@@ -81,9 +78,16 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 		throw new BizException(ExceptionType.USER_INSERT_ERROR);
 	}
 
+	/**
+	 * TODO: 等待重构
+	 *
+	 * @param id
+	 * @param userUpdateRequest
+	 * @return
+	 */
 	@Override
 	public UserDto update(String id, UserUpdateRequest userUpdateRequest) {
-		final User user = getById(id);
+		final User user = this.userDao.selectById(id);
 		if (user == null) {
 			throw new BizException(ExceptionType.USER_NOT_FOUND);
 		}
@@ -99,11 +103,16 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 		if (!StrUtil.isBlank(gender)) {
 			user.setGender(Gender.valueOf(gender));
 		}
-		final boolean success = this.updateById(user);
+		final boolean success = this.userDao.updateById(user) == 1;
 		if (success) {
 			return this.userMapper.toDto(user);
 		}
 		throw new BizException(ExceptionType.USER_UPDATE_ERROR);
+	}
+
+	@Override
+	public void delete(String id) {
+		this.userDao.deleteById(getById(id));
 	}
 
 	private void checkUserName(String username) {
@@ -118,11 +127,12 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
 	@Override
 	public User loadUserByUsername(String username) {
-		User user = this.userDao.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
-		if (user == null) {
-			throw new BizException(ExceptionType.USER_NOT_FOUND);
-		}
-		return user;
+		return super.loadUserByUsername(username);
+	}
+
+	@Override
+	public UserDto get(String id) {
+		return this.userMapper.toDto(getById(id));
 	}
 
 	@Override
@@ -145,8 +155,15 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
 	@Override
 	public UserDto getCurrentUser() {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		final User user = this.loadUserByUsername(authentication.getName());
-		return this.userMapper.toDto(user);
+		return this.userMapper.toDto(super.getCurrentUserEntity());
 	}
+
+	private User getById(String id) {
+		final User user = this.userDao.selectById(id);
+		if (user == null) {
+			throw new BizException(ExceptionType.USER_NOT_FOUND);
+		}
+		return user;
+	}
+
 }
