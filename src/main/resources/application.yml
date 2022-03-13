@@ -42,5 +42,3 @@ cos:
   secret:
     id: ${COS_SECRET_ID}
     key: ${COS_SECRET_KEY}
-
-

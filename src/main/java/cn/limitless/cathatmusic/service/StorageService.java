@@ -12,4 +12,6 @@ import cn.limitless.cathatmusic.dto.FileUploadDto;
 public interface StorageService {
 
 	FileUploadDto initFileUpload();
+	
+	String getFileUri(String fileKey);
 }

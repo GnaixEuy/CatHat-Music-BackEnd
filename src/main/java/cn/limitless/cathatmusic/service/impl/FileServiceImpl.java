@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -73,7 +74,7 @@ public class FileServiceImpl extends BaseService implements FileService {
 		if (ObjectUtil.isNull(file)) {
 			throw new BizException(ExceptionType.FILE_BOT_FOUND);
 		}
-		if (file.getCreatedBy() != getCurrentUserEntity()) {
+		if (!Objects.equals(file.getCreatedBy().getId(), getCurrentUserEntity().getId())) {
 			throw new BizException(ExceptionType.FILE_NOT_PERMISSION);
 		}
 		//TODO: 验证远程文件是否存在

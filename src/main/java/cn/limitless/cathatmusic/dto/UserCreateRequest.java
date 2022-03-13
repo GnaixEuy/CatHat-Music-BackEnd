@@ -1,5 +1,6 @@
 package cn.limitless.cathatmusic.dto;
 
+import cn.limitless.cathatmusic.enums.Gender;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -25,6 +26,6 @@ public class UserCreateRequest {
 
 	private String nickname;
 
-	private String gender;
+	private Gender gender;
 
 }

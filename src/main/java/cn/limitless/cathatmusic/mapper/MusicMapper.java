@@ -15,7 +15,7 @@ import org.mapstruct.MappingTarget;
  * @date 2022/2/21
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = FileMapper.class)
 public interface MusicMapper {
 
 	MusicDto toDto(Music music);

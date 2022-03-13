@@ -4,6 +4,7 @@ import cn.limitless.cathatmusic.dto.FileDto;
 import cn.limitless.cathatmusic.dto.FileUploadRequest;
 import cn.limitless.cathatmusic.entity.File;
 import cn.limitless.cathatmusic.vo.FileVo;
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 
 /**
@@ -14,6 +15,7 @@ import org.mapstruct.Mapper;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Mapper(componentModel = "spring")
+@DecoratedWith(FileMapperDecorator.class)
 public interface FileMapper {
 	File createEntity(FileUploadRequest fileUploadRequest);
 
