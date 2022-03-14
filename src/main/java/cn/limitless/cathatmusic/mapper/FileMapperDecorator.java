@@ -32,6 +32,11 @@ public abstract class FileMapperDecorator implements FileMapper {
 			return null;
 		}
 
+		// Todo: 待修复
+		if (fileDto.getStorage() == null) {
+			return null;
+		}
+
 		fileDto.setUri(storageServices.get(fileDto.getStorage().name()).getFileUri(fileDto.getKey()));
 		return fileDto;
 	}

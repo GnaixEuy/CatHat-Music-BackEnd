@@ -1,25 +1,27 @@
 package cn.limitless.cathatmusic.dto;
 
-import cn.limitless.cathatmusic.enums.Storage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
  *
  * @author GnaixEuy
- * @date 2022/3/5
+ * @date 2022/3/13
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SiteSettingDto {
+public abstract class BaseDto {
 
-	private String bucket;
+	private String id;
 
-	private String region;
+	private Date createdTime;
 
-	private Storage storage;
+	private Date updatedTime;
+
 }

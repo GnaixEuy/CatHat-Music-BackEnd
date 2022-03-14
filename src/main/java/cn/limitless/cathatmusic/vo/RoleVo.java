@@ -1,7 +1,6 @@
 package cn.limitless.cathatmusic.vo;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -10,8 +9,11 @@ import lombok.EqualsAndHashCode;
  * @date 2022/1/25
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoleVo extends BaseVo {
 
 	private String id;

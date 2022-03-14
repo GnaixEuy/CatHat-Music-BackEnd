@@ -3,8 +3,7 @@ package cn.limitless.cathatmusic.vo;
 import cn.limitless.cathatmusic.enums.FileStatus;
 import cn.limitless.cathatmusic.enums.FileType;
 import cn.limitless.cathatmusic.enums.Storage;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -13,8 +12,11 @@ import lombok.EqualsAndHashCode;
  * @date 2022/3/4
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FileVo extends BaseVo {
 
 	private String name;

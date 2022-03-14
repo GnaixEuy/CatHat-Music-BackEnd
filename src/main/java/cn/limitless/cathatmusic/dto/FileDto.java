@@ -39,7 +39,7 @@ public class FileDto {
 
 	private FileStatus fileStatus;
 
-	private java.util.Date createdTime;
+	private Date createdTime;
 
 	private Date updatedTime;
 

@@ -1,6 +1,8 @@
 package cn.limitless.cathatmusic.entity;
 
 import cn.limitless.cathatmusic.enums.PlayListStatus;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,7 +13,14 @@ import java.util.List;
  * @date 2022/3/12
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName(value = "playlist", resultMap = "playListResultMap")
 public class Playlist extends BaseEntity {
+
 	private String name;
 
 	private String description;
@@ -22,8 +31,6 @@ public class Playlist extends BaseEntity {
 
 	private User creator;
 
-	/**
-	 * @Description: TODO： 增加持久层一对多对象映射
-	 */
 	private List<Music> musicList;
+
 }

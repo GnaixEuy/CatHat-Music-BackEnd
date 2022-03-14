@@ -1,6 +1,8 @@
 package cn.limitless.cathatmusic.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
@@ -12,6 +14,8 @@ import javax.validation.constraints.NotBlank;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MusicCreateRequest {
 
 	@NotBlank(message = "歌曲名不能为空")

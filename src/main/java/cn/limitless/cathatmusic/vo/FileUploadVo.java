@@ -1,6 +1,8 @@
 package cn.limitless.cathatmusic.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -10,6 +12,8 @@ import lombok.Data;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FileUploadVo {
 
 	private String secretId;
@@ -25,5 +29,5 @@ public class FileUploadVo {
 	private Long startTime;
 
 	private Long expiredTime;
-	
+
 }
