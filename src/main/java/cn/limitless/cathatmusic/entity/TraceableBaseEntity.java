@@ -22,5 +22,5 @@ public class TraceableBaseEntity extends BaseEntity {
 	protected User createdBy;
 
 	protected User updatedBy;
-	
+
 }

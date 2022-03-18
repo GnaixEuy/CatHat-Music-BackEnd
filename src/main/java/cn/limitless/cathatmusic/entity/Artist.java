@@ -1,7 +1,11 @@
 package cn.limitless.cathatmusic.entity;
 
 import cn.limitless.cathatmusic.enums.ArtistStatus;
-import lombok.*;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -15,8 +19,8 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@TableName(value = "artist", resultMap = "artistResultMap")
 public class Artist extends TraceableBaseEntity {
 
 	private String name;
