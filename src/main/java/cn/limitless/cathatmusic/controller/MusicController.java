@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -32,7 +33,7 @@ public class MusicController {
 	@PostMapping(value = {""})
 	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public MusicVo create(@Validated @RequestBody MusicCreateRequest musicCreateRequest) {
-		return this.musicMapper.toVo(this.musicService.create(musicCreateRequest));
+		return musicMapper.toVo(musicService.create(musicCreateRequest));
 	}
 
 	/**
@@ -41,18 +42,14 @@ public class MusicController {
 	@PostMapping(value = {"/{id}"})
 	@RolesAllowed(value = {"ROLE_ADMIN"})
 	public MusicVo update(@PathVariable String id, @Validated @RequestBody MusicUpdateRequest musicUpdateRequest) {
-		return this.musicMapper.toVo(
-				this.musicService.update(id, musicUpdateRequest));
+		return musicMapper.toVo(musicService.update(id, musicUpdateRequest));
 	}
 
-//	@GetMapping(value = {""})
-//	public List<MusicVo> list() {
-//		return this.musicService.list()
-//				.stream()
-//				.map(this.musicMapper::toDto)
-//				.map(this.musicMapper::toVo)
-//				.collect(Collectors.toList());
-//	}
+	@GetMapping(value = {""})
+	@RolesAllowed(value = {"ROLE_ADMIN"})
+	public List<MusicVo> list() {
+		return null;
+	}
 
 	/**
 	 * Todo: 未完成 post请求; 参数问题

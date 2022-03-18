@@ -11,12 +11,14 @@ import cn.limitless.cathatmusic.exception.BizException;
 import cn.limitless.cathatmusic.exception.ExceptionType;
 import cn.limitless.cathatmusic.mapper.ArtistMapper;
 import cn.limitless.cathatmusic.service.ArtistService;
+import cn.limitless.cathatmusic.service.FileService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,13 +35,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class ArtistServiceImpl extends BaseService implements ArtistService {
 
-	private final ArtistMapper mapper;
-
 	private final ArtistDao artistDao;
+	private final ArtistMapper mapper;
+	private final FileService fileService;
 
 	@Override
+	@Transactional
 	public ArtistDto create(ArtistCreateRequest artistCreateRequest) {
 		Artist artist = mapper.createEntity(artistCreateRequest);
+		// Todo: 转换两次，需要修改。
+		artist.setPhoto(fileService.getFileEntity(artistCreateRequest.getPhotoId()));
 		artist.setStatus(ArtistStatus.DRAFT);
 		artist.setCreatedBy(getCurrentUserEntity());
 		artist.setUpdatedBy(getCurrentUserEntity());
@@ -74,6 +79,7 @@ public class ArtistServiceImpl extends BaseService implements ArtistService {
 					.eq(TraceableBaseEntity::getCreatedBy, getCurrentUserEntity())
 					.eq(TraceableBaseEntity::getUpdatedBy, getCurrentUserEntity())
 			);
+			resultArtist.setPhoto(fileService.getFileEntity(artistUpdateRequest.getPhotoId()));
 			return this.mapper.toDto(resultArtist);
 		} else {
 			throw new BizException(ExceptionType.INNER_ERROR);

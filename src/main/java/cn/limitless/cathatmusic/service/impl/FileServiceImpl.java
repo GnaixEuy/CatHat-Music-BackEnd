@@ -70,10 +70,7 @@ public class FileServiceImpl extends BaseService implements FileService {
 
 	@Override
 	public FileDto finishUpload(String id) {
-		final File file = this.fileDao.selectById(id);
-		if (ObjectUtil.isNull(file)) {
-			throw new BizException(ExceptionType.FILE_BOT_FOUND);
-		}
+		final File file = this.getFileEntity(id);
 		if (!Objects.equals(file.getCreatedBy().getId(), getCurrentUserEntity().getId())) {
 			throw new BizException(ExceptionType.FILE_NOT_PERMISSION);
 		}
@@ -89,6 +86,15 @@ public class FileServiceImpl extends BaseService implements FileService {
 	@Override
 	public Storage getDefaultStorage() {
 		return Storage.COS;
+	}
+
+	@Override
+	public File getFileEntity(String id) {
+		final File file = this.fileDao.selectById(id);
+		if (ObjectUtil.isNull(file)) {
+			throw new BizException(ExceptionType.FILE_NOT_FOUND);
+		}
+		return file;
 	}
 
 }

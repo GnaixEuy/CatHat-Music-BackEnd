@@ -6,7 +6,6 @@ import cn.limitless.cathatmusic.dto.MusicUpdateRequest;
 import cn.limitless.cathatmusic.entity.Music;
 import cn.limitless.cathatmusic.vo.MusicVo;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -16,13 +15,12 @@ import org.mapstruct.MappingTarget;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Mapper(componentModel = "spring", uses = FileMapper.class)
-public interface MusicMapper {
+public interface MusicMapper extends MapperInterface<Music, MusicDto> {
 
-	MusicDto toDto(Music music);
+	MusicDto toDto(MusicCreateRequest musicCreateRequest);
+
+	MusicDto toDto(MusicUpdateRequest musicUpdateRequest);
 
 	MusicVo toVo(MusicDto musicDto);
 
-	Music createEntity(MusicCreateRequest musicCreateRequest);
-
-	Music updateEntity(@MappingTarget Music music, MusicUpdateRequest musicUpdateRequest);
 }

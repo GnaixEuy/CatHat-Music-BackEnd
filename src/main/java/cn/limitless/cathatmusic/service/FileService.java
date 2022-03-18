@@ -3,6 +3,7 @@ package cn.limitless.cathatmusic.service;
 import cn.limitless.cathatmusic.dto.FileDto;
 import cn.limitless.cathatmusic.dto.FileUploadDto;
 import cn.limitless.cathatmusic.dto.FileUploadRequest;
+import cn.limitless.cathatmusic.entity.File;
 import cn.limitless.cathatmusic.enums.Storage;
 
 import java.io.IOException;
@@ -21,4 +22,6 @@ public interface FileService {
 	FileDto finishUpload(String id);
 
 	Storage getDefaultStorage();
+
+	File getFileEntity(String id);
 }

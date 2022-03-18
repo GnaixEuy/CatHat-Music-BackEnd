@@ -18,10 +18,10 @@ import java.util.Date;
 @NoArgsConstructor
 public abstract class BaseDto {
 
-	private String id;
+	protected String id;
 
-	private Date createdTime;
+	protected Date createdTime;
 
-	private Date updatedTime;
+	protected Date updatedTime;
 
 }

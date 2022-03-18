@@ -22,4 +22,6 @@ public interface FileMapper {
 	FileVo toVo(FileDto fileDto);
 
 	FileDto toDto(File file);
+
+	File toEntity(FileDto fileDto);
 }

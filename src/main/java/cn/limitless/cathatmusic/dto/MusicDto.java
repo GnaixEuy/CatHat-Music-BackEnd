@@ -2,8 +2,8 @@ package cn.limitless.cathatmusic.dto;
 
 import cn.limitless.cathatmusic.enums.MusicStatus;
 import lombok.Data;
-
-import java.util.Date;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -12,21 +12,17 @@ import java.util.Date;
  * @date 2022/2/21
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class MusicDto {
-
-	private String id;
+public class MusicDto extends BaseDto {
 
 	private String name;
 
-	private MusicStatus status;
+	private MusicStatus status = MusicStatus.DRAFT;
 
 	private String description;
 
 	private FileDto file;
-
-	private Date createdTime;
-
-	private Date updatedTime;
 
 }
