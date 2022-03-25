@@ -29,17 +29,19 @@ import java.io.IOException;
 public class FileController {
 
 	private final FileService fileService;
+
 	private final FileMapper fileMapper;
+
 	private final FileUploadMapper fileUploadMapper;
 
-	@PostMapping(value = {"/upload_init"})
+	@PostMapping("/upload_init")
 	public FileUploadVo initUpload(@Validated @RequestBody FileUploadRequest fileUploadRequest) throws IOException {
-		return this.fileUploadMapper.toVo(this.fileService.initUpload(fileUploadRequest));
+		return fileUploadMapper.toVo(fileService.initUpload(fileUploadRequest));
 	}
 
-	@PostMapping(value = {"/{id}/upload_finish"})
+	@PostMapping("/{id}/upload_finish")
 	public FileVo finishUpload(@PathVariable String id) {
-		return this.fileMapper.toVo(this.fileService.finishUpload(id));
+		return fileMapper.toVo(fileService.finishUpload(id));
 	}
 
 }

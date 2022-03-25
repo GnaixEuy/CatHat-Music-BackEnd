@@ -32,4 +32,5 @@ public class PlaylistController {
 	public PlaylistVo get(@PathVariable String id) {
 		return playlistMapper.toVo(playlistService.get(id));
 	}
+
 }

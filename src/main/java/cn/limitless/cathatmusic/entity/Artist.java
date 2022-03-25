@@ -1,12 +1,9 @@
 package cn.limitless.cathatmusic.entity;
 
 import cn.limitless.cathatmusic.enums.ArtistStatus;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -16,19 +13,19 @@ import java.util.List;
  * @date 2022/3/13
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
-@TableName(value = "artist", resultMap = "artistResultMap")
+@Entity
 public class Artist extends TraceableBaseEntity {
 
 	private String name;
 
 	private String remark;
 
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private File photo;
 
+	@ManyToMany
+	@JoinTable(name = "artist_music", joinColumns = @JoinColumn(name = "artist_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "music_id", referencedColumnName = "id"))
 	private List<Music> musicList;
 
 	private ArtistStatus status;

@@ -1,9 +1,12 @@
 package cn.limitless.cathatmusic.utils;
 
-import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
-import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.github.ksuid.KsuidGenerator;
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
 import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -16,13 +19,8 @@ import org.springframework.stereotype.Component;
 public class KsuidIdentifierGenerator implements IdentifierGenerator {
 
 	@Override
-	public Number nextId(Object entity) {
-		return new DefaultIdentifierGenerator().nextId(entity);
-	}
-
-	@Override
-	@SuppressWarnings(value = {"nls"})
-	public String nextUUID(Object entity) {
+	public Serializable generate(SharedSessionContractImplementor sharedSessionContractImplementor, Object o) throws HibernateException {
 		return KsuidGenerator.generate();
 	}
+
 }

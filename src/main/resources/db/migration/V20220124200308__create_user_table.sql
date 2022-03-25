@@ -12,6 +12,7 @@ CREATE TABLE user
     last_login_time datetime(6)          NULL COMMENT '最后登录IP',
     created_time    datetime(6)          NOT NULL COMMENT '创建时间',
     updated_time    datetime(6)          NOT NULL COMMENT '更新时间',
+    open_id         varchar(32)          NULL COMMENT 'open_id',
     CONSTRAINT uk_user_username
         UNIQUE (username)
 ) ENGINE = InnoDB

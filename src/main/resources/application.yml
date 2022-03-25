@@ -1,21 +1,21 @@
 spring:
   datasource:
-    druid:
-      url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DATABASE_NAME}?characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-      username: ${MYSQL_USER_NAME}
-      password: ${MYSQL_PASSWORD}
-      driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DATABASE_NAME}?characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER_NAME}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   application:
     name: CatHatMusic
   profiles:
     active: dev
+  jpa:
+    generate-ddl: false
   flyway:
     enabled: true
     encoding: UTF-8
     locations: classpath:db/migration
     sqlMigrationPrefix: V
     sqlMigrationSeparator: __
-    sqlMigrationSuffixes: .sql
     validateOnMigrate: true
     baselineOnMigrate: true
   mvc:
@@ -23,19 +23,11 @@ spring:
       matching-strategy: ant_path_matcher
 server:
   port: ${APPLICATION_PORT}
-mybatis-plus:
-  mapper-locations: classpath:cn/limitless/cathatmusic/dao/impl/*.xml
-  type-enums-package: cn.limitless.cathatmusic.enums
-  configuration:
-    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
-    map-underscore-to-camel-case: false
-  type-aliases-package: cn.limitless.cathatmusic.entity
 weixin:
   mp:
     app:
       id: ${MP_APP_ID}
       secret: ${MP_APP_SECRET}
-
 cos:
   bucket: ${COS_BUCKET}
   region: ${COS_REGION}

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -23,5 +25,8 @@ public class MusicCreateRequest {
 
 	private String description;
 
-	private FileDto file;
+	private String fileId;
+
+	@NotNull(message = "歌手未选择")
+	private List<String> artistIds;
 }

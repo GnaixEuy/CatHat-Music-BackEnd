@@ -28,7 +28,7 @@ public class SettingController {
 
 	@GetMapping("/site")
 	public SiteSettingVo getSiteSetting() {
-		return siteSettingMapper.toVo(settingService.getSiteSetting());
+		return siteSettingMapper.toVo(this.settingService.getSiteSetting());
 	}
 
 }

@@ -1,6 +1,8 @@
 package cn.limitless.cathatmusic.entity;
 
-import lombok.*;
+import lombok.Data;
+
+import javax.persistence.Entity;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -9,14 +11,12 @@ import lombok.*;
  * @date 2022/1/25
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-@EqualsAndHashCode(callSuper = true)
+@Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString(callSuper = true)
 public class Role extends BaseEntity {
 
 	private String name;
 
 	private String title;
+
 }

@@ -1,9 +1,11 @@
 package cn.limitless.cathatmusic.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -13,14 +15,17 @@ import lombok.NoArgsConstructor;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class TraceableBaseEntity extends BaseEntity {
+@MappedSuperclass
+public abstract class TraceableBaseEntity extends BaseEntity {
 
-	protected User createdBy;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "created_by_user_id")
+	private User createdBy;
 
-	protected User updatedBy;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "updated_by_user_id")
+	private User updatedBy;
 }
+

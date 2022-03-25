@@ -1,8 +1,9 @@
 package cn.limitless.cathatmusic.service;
 
-import cn.limitless.cathatmusic.dto.ArtistCreateRequest;
 import cn.limitless.cathatmusic.dto.ArtistDto;
-import cn.limitless.cathatmusic.dto.ArtistUpdateRequest;
+import cn.limitless.cathatmusic.dto.ArtistSearchFilter;
+import cn.limitless.cathatmusic.entity.Artist;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -13,10 +14,8 @@ import java.util.List;
  * @date 2022/3/14
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-public interface ArtistService {
-	ArtistDto create(ArtistCreateRequest artistCreateRequest);
-
-	ArtistDto update(String id, ArtistUpdateRequest artistUpdateRequest);
-
+public interface ArtistService extends GeneralService<Artist, ArtistDto> {
 	List<ArtistDto> list();
+
+	Page<ArtistDto> search(ArtistSearchFilter artistSearchFilter);
 }

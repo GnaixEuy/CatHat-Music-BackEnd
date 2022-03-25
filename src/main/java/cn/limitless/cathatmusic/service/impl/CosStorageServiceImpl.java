@@ -66,8 +66,8 @@ public class CosStorageServiceImpl implements StorageService {
 	public String getFileUri(String fileKey) {
 		COSClient cosClient = createCOSClient();
 		Date expirationDate = new Date(System.currentTimeMillis() + 30 * 60 * 1000);
-		Map<String, String> params = new HashMap<>();
-		Map<String, String> headers = new HashMap<>();
+		Map<String, String> params = new HashMap<String, String>();
+		Map<String, String> headers = new HashMap<String, String>();
 		HttpMethodName method = HttpMethodName.GET;
 		URL url = cosClient.generatePresignedUrl(bucket, fileKey, expirationDate, method, headers, params);
 		cosClient.shutdown();
@@ -75,7 +75,7 @@ public class CosStorageServiceImpl implements StorageService {
 	}
 
 	private TreeMap<String, Object> getCosStsConfig() {
-		TreeMap<String, Object> config = new TreeMap<>();
+		TreeMap<String, Object> config = new TreeMap<String, Object>();
 		config.put("secretId", secretId);
 		config.put("secretKey", secretKey);
 
