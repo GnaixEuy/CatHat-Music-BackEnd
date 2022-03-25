@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
  *
@@ -24,5 +26,7 @@ public class MusicDto extends BaseDto {
 	private String description;
 
 	private FileDto file;
+
+	private List<ArtistDto> artistList;
 
 }

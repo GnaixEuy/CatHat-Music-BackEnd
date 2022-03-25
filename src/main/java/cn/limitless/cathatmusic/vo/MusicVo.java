@@ -3,6 +3,8 @@ package cn.limitless.cathatmusic.vo;
 import cn.limitless.cathatmusic.enums.MusicStatus;
 import lombok.*;
 
+import java.util.List;
+
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
  *
@@ -25,4 +27,5 @@ public class MusicVo extends BaseVo {
 
 	private FileVo file;
 
+	private List<ArtistVo> artistList;
 }

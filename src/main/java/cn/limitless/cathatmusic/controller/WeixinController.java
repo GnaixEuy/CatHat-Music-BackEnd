@@ -21,17 +21,17 @@ import javax.websocket.server.PathParam;
 @RestController
 @RequestMapping(value = {"/weixin"})
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
-public class WeChatController {
+public class WeixinController {
 
-	private WxMpService wxMpService;
+	private final WxMpService wxMpService;
 
 	@GetMapping("/auth_url")
 	public String getAuthUrl(@PathParam("redirectUrl") String redirectUrl) {
-		return this.wxMpService
-				.getOAuth2Service()
-				.buildAuthorizationUrl(redirectUrl,
-						WxConsts.OAuth2Scope.SNSAPI_USERINFO,
-						null);
+		return wxMpService.getOAuth2Service().buildAuthorizationUrl(
+				redirectUrl,
+				WxConsts.OAuth2Scope.SNSAPI_USERINFO,
+				null
+		);
 	}
 
 }

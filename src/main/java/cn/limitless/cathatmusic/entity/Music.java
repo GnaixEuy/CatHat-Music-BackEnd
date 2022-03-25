@@ -1,8 +1,13 @@
 package cn.limitless.cathatmusic.entity;
 
 import cn.limitless.cathatmusic.enums.MusicStatus;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -11,22 +16,38 @@ import lombok.*;
  * @date 2022/2/19
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@TableName(value = "music", resultMap = "musicResultMap")
+@Entity
 public class Music extends BaseEntity {
-
 	private String name;
 
+	@Enumerated(EnumType.STRING)
 	private MusicStatus status;
+
+	@ManyToMany
+	@JoinTable(name = "artist_music", joinColumns = @JoinColumn(name = "music_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "artist_id", referencedColumnName = "id"))
+	@ToString.Exclude
+	private List<Artist> artistList;
 
 	private String description;
 
-	/**
-	 * @Description: TODO: 需要持久层一对一对象映射
-	 */
+	@OneToOne
 	private File file;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+			return false;
+		}
+		Music music = (Music) o;
+		return getId() != null && Objects.equals(getId(), music.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }

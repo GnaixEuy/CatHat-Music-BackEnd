@@ -1,5 +1,5 @@
 INSERT INTO `user` (id, username, nickname, password, created_time, updated_time)
-VALUES ('1', 'admin', 'GnaixEuy', '$2a$10$t/9Fu1/5zDt/0XUbxoFYP.bzaLNOz5Apr8J6QIFDh9IDsaKSGB7xa',
+VALUES ('1', 'admin', 'GnaixEuy', '$2a$10$tLL4xDMkoWZN98GKxueh5uvUzT2jwjXTn7I5uDx95pWzC2PWar5bS',
         '2021-07-21 09:27:12.260000',
         '2021-07-21 09:27:12.260000');
 INSERT INTO `user` (id, username, nickname, password, created_time, updated_time)

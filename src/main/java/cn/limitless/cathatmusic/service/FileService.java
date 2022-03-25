@@ -16,7 +16,6 @@ import java.io.IOException;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 public interface FileService {
-
 	FileUploadDto initUpload(FileUploadRequest fileUploadRequest) throws IOException;
 
 	FileDto finishUpload(String id);

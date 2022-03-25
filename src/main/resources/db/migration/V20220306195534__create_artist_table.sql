@@ -5,7 +5,7 @@ CREATE TABLE artist
     `name` VARCHAR(64) NOT NULL COMMENT '歌手名字',
     `remark` VARCHAR(128) NULL COMMENT '歌手备注',
     `photo_id` VARCHAR(32) NULL COMMENT '歌手照片ID',
-    `status` INTEGER(2) DEFAULT 0 NOT NULL COMMENT '歌手上架状态，0-DRAFT-草稿，1-PUBLISHED-已上架，2-BLOCKED-已封禁',
+    `status` VARCHAR(32) DEFAULT 'DRAFT' NOT NULL COMMENT '歌手上架状态，DRAFT-草稿，PUBLISHED-已上架，BLOCKED-已封禁',
     `created_by_user_id` VARCHAR(32) NOT NULL COMMENT '创建人ID',
     `updated_by_user_id` VARCHAR(32) NOT NULL COMMENT '最后更新人ID',
     `created_time` datetime(6) NOT NULL COMMENT '创建时间',

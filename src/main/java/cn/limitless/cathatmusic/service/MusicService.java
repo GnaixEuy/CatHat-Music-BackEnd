@@ -1,10 +1,9 @@
 package cn.limitless.cathatmusic.service;
 
-import cn.limitless.cathatmusic.dto.MusicCreateRequest;
 import cn.limitless.cathatmusic.dto.MusicDto;
-import cn.limitless.cathatmusic.dto.MusicUpdateRequest;
+import cn.limitless.cathatmusic.dto.MusicSearchFilter;
 import cn.limitless.cathatmusic.entity.Music;
-import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.data.domain.Page;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -13,14 +12,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @date 2022/2/21
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-public interface MusicService extends IService<Music> {
+public interface MusicService extends GeneralService<Music, MusicDto> {
 
-	MusicDto create(MusicCreateRequest musicCreateRequest);
-
-	MusicDto update(String id, MusicUpdateRequest musicUpdateRequest);
+	Page<MusicDto> search(MusicSearchFilter musicSearchRequest);
 
 	void publish(String id);
 
 	void close(String id);
-
 }

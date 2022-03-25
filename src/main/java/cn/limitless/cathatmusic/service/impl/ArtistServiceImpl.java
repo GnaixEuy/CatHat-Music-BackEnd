@@ -1,24 +1,26 @@
 package cn.limitless.cathatmusic.service.impl;
 
-import cn.limitless.cathatmusic.dao.ArtistDao;
-import cn.limitless.cathatmusic.dto.ArtistCreateRequest;
 import cn.limitless.cathatmusic.dto.ArtistDto;
-import cn.limitless.cathatmusic.dto.ArtistUpdateRequest;
+import cn.limitless.cathatmusic.dto.ArtistSearchFilter;
 import cn.limitless.cathatmusic.entity.Artist;
-import cn.limitless.cathatmusic.entity.TraceableBaseEntity;
-import cn.limitless.cathatmusic.enums.ArtistStatus;
-import cn.limitless.cathatmusic.exception.BizException;
 import cn.limitless.cathatmusic.exception.ExceptionType;
 import cn.limitless.cathatmusic.mapper.ArtistMapper;
+import cn.limitless.cathatmusic.mapper.MapperInterface;
+import cn.limitless.cathatmusic.repository.ArtistRepository;
+import cn.limitless.cathatmusic.repository.specs.ArtistSpecification;
+import cn.limitless.cathatmusic.repository.specs.SearchCriteria;
+import cn.limitless.cathatmusic.repository.specs.SearchOperation;
 import cn.limitless.cathatmusic.service.ArtistService;
-import cn.limitless.cathatmusic.service.FileService;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,61 +35,39 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
-public class ArtistServiceImpl extends BaseService implements ArtistService {
+public class ArtistServiceImpl extends TraceableGeneralServiceImpl<Artist, ArtistDto> implements ArtistService {
 
-	private final ArtistDao artistDao;
 	private final ArtistMapper mapper;
-	private final FileService fileService;
 
-	@Override
-	@Transactional
-	public ArtistDto create(ArtistCreateRequest artistCreateRequest) {
-		Artist artist = mapper.createEntity(artistCreateRequest);
-		// Todo: 转换两次，需要修改。
-		artist.setPhoto(fileService.getFileEntity(artistCreateRequest.getPhotoId()));
-		artist.setStatus(ArtistStatus.DRAFT);
-		artist.setCreatedBy(getCurrentUserEntity());
-		artist.setUpdatedBy(getCurrentUserEntity());
-		final int insertResult = this.artistDao.insert(artist);
-		if (insertResult == 1) {
-			final Artist resultArtist = this.artistDao.selectOne(Wrappers.<Artist>lambdaQuery()
-					.eq(Artist::getName, artist.getName())
-					.eq(Artist::getPhoto, artist.getPhoto())
-					.eq(Artist::getRemark, artist.getRemark())
-					.eq(TraceableBaseEntity::getCreatedBy, getCurrentUserEntity())
-					.eq(TraceableBaseEntity::getUpdatedBy, getCurrentUserEntity())
-			);
-			return mapper.toDto(resultArtist);
-		} else {
-			throw new BizException(ExceptionType.INNER_ERROR);
-		}
-	}
-
-	@Override
-	public ArtistDto update(String id, ArtistUpdateRequest artistUpdateRequest) {
-		final Artist artist = this.artistDao.selectById(id);
-		if (artist == null) {
-			throw new BizException(ExceptionType.ARTIST_NOT_FOUND);
-		}
-		Artist updateArtist = mapper.updateEntity(artist, artistUpdateRequest);
-		final int updateResult = this.artistDao.updateById(updateArtist);
-		if (updateResult == 1) {
-			final Artist resultArtist = this.artistDao.selectOne(Wrappers.<Artist>lambdaQuery()
-					.eq(Artist::getName, artist.getName())
-					.eq(Artist::getPhoto, artist.getPhoto())
-					.eq(Artist::getRemark, artist.getRemark())
-					.eq(TraceableBaseEntity::getCreatedBy, getCurrentUserEntity())
-					.eq(TraceableBaseEntity::getUpdatedBy, getCurrentUserEntity())
-			);
-			resultArtist.setPhoto(fileService.getFileEntity(artistUpdateRequest.getPhotoId()));
-			return this.mapper.toDto(resultArtist);
-		} else {
-			throw new BizException(ExceptionType.INNER_ERROR);
-		}
-	}
+	private final ArtistRepository repository;
 
 	@Override
 	public List<ArtistDto> list() {
-		return this.artistDao.selectList(null).stream().map(mapper::toDto).collect(Collectors.toList());
+		return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
+	}
+
+	@Override
+	public Page<ArtistDto> search(ArtistSearchFilter artistSearchFilter) {
+		ArtistSpecification specs = new ArtistSpecification();
+		// Todo: 代码重复需要重构
+		specs.add(new SearchCriteria("name", artistSearchFilter.getName(), SearchOperation.MATCH));
+		Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
+		Pageable pageable = PageRequest.of(artistSearchFilter.getPage() - 1, artistSearchFilter.getSize(), sort);
+		return repository.findAll(specs, pageable).map(mapper::toDto);
+	}
+
+	@Override
+	public JpaRepository<Artist, String> getRepository() {
+		return repository;
+	}
+
+	@Override
+	public MapperInterface<Artist, ArtistDto> getMapper() {
+		return mapper;
+	}
+
+	@Override
+	public ExceptionType getNotFoundExceptionType() {
+		return ExceptionType.ARTIST_NOT_FOUND;
 	}
 }

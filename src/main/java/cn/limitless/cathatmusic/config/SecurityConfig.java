@@ -31,12 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	public static final String SECRET = "CatHatMusic";
 	/**
-	 * 10 days
+	 * 1 days
 	 */
-	public static final long EXPIRATION_TIME = 864000000;
+	public static final long EXPIRATION_TIME = 86400000;
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
-	public static final String CREATE_TOKEN_URL = "/tokens";
+	public static final String CREATE_TOKEN_URL = "/tokens/**";
 	public static final String SITE_SETTING_URL = "/settings/site";
 
 	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;

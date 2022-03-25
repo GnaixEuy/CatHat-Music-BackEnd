@@ -3,6 +3,7 @@ package cn.limitless.cathatmusic.service.impl;
 import cn.limitless.cathatmusic.dto.SiteSettingDto;
 import cn.limitless.cathatmusic.service.FileService;
 import cn.limitless.cathatmusic.service.SettingService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Service
+@Data
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class SettingServiceImpl implements SettingService {
 
@@ -34,5 +36,4 @@ public class SettingServiceImpl implements SettingService {
 		siteSettingDto.setStorage(fileService.getDefaultStorage());
 		return siteSettingDto;
 	}
-
 }

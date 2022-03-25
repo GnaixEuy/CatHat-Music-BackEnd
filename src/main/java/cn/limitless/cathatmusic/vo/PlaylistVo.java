@@ -36,5 +36,4 @@ public class PlaylistVo extends BaseVo {
 	private Date createdTime;
 
 	private Date updatedTime;
-	
 }
