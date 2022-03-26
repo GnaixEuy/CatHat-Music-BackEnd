@@ -1,45 +1,42 @@
 spring:
-  application:
-    name: CatHatMusic
   datasource:
-    druid:
-      url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DATABASE_NAME}?characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-      username: ${MYSQL_USER_NAME}
-      password: ${MYSQL_PASSWORD}
-      driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:h2:mem:CatHatMusic;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    url: jdbc:h2:mem:music;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     username: sa
-    driver-class-name: org.h2.Driver
     password:
+    driver-class-name: org.h2.Driver
   sql:
     init:
       platform: h2
       continue-on-error: false
-  flyway:
-    enabled: false
   h2:
     console:
       enabled: true
-  config:
-    import: file:.env.dev[.properties]
+  application:
+    name: CatHatMusic
+  profiles:
+    active: dev
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    properties:
+      format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: false
+    encoding: UTF-8
+    locations: classpath:db/migration
+    sqlMigrationPrefix: V
+    sqlMigrationSeparator: __
+    validateOnMigrate: true
+    baselineOnMigrate: true
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher
-springfox:
-  documentation:
-    enabled: false
-    swagger:
-      v2:
-        enabled: false
-    swagger-ui:
-      enabled: false
-mybatis-plus:
-  mapper-locations: classpath:cn/limitless/cathatmusic/dao/impl/*.xml
-  type-enums-package: cn.limitless.cathatmusic.enums
-  configuration:
-    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
-    map-underscore-to-camel-case: false
-  type-aliases-package: cn.limitless.cathatmusic.entity
+      matching-strategy: ANT_PATH_MATCHER
+  config:
+    import: file:.env.dev[.properties]
+server:
+  port: ${APPLICATION_PORT}
 weixin:
   mp:
     app:
@@ -47,9 +44,11 @@ weixin:
       secret: ${MP_APP_SECRET}
 cos:
   bucket: ${COS_BUCKET}
+  region: ${COS_REGION}
   secret:
     id: ${COS_SECRET_ID}
     key: ${COS_SECRET_KEY}
-  region: ${COS_REGION}
-
-
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: false

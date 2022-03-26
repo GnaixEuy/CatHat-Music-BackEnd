@@ -20,7 +20,7 @@ spring:
     baselineOnMigrate: true
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher
+      matching-strategy: ANT_PATH_MATCHER
 server:
   port: ${APPLICATION_PORT}
 weixin:
