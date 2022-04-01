@@ -13,10 +13,7 @@ import cn.limitless.cathatmusic.repository.UserRepository;
 import cn.limitless.cathatmusic.service.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,16 +29,16 @@ import java.util.Optional;
  * @date 2022/1/25
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
+
 @Service
-@Slf4j
-@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class UserServiceImpl extends BaseService implements UserService {
 
-	private final UserRepository repository;
+	UserRepository repository;
 
-	private final UserMapper mapper;
+	UserMapper mapper;
 
-	private final PasswordEncoder passwordEncoder;
+	PasswordEncoder passwordEncoder;
+
 
 	@Override
 	public UserDto create(UserCreateRequest userCreateRequest) {
@@ -105,26 +102,6 @@ public class UserServiceImpl extends BaseService implements UserService {
 	}
 
 	@Override
-	public String createTokenByOpenId(String openId) {
-		User user = repository.getByOpenId(openId);
-		if (user == null) {
-			throw new BizException(ExceptionType.USER_OPEN_ID_NOT_FOUND);
-		}
-
-		if (!user.isEnabled()) {
-			throw new BizException(ExceptionType.USER_NOT_ENABLED);
-		}
-
-		if (!user.isAccountNonLocked()) {
-			throw new BizException(ExceptionType.USER_LOCKED);
-		}
-		return JWT.create()
-				.withSubject(user.getUsername())
-				.withExpiresAt(new Date(System.currentTimeMillis() + SecurityConfig.EXPIRATION_TIME))
-				.sign(Algorithm.HMAC512(SecurityConfig.SECRET.getBytes()));
-	}
-
-	@Override
 	public UserDto getCurrentUser() {
 		return mapper.toDto(super.getCurrentUserEntity());
 	}
@@ -137,4 +114,19 @@ public class UserServiceImpl extends BaseService implements UserService {
 		}
 	}
 
+
+	@Autowired
+	private void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	@Autowired
+	private void setMapper(UserMapper mapper) {
+		this.mapper = mapper;
+	}
+
+	@Autowired
+	private void setRepository(UserRepository repository) {
+		this.repository = repository;
+	}
 }

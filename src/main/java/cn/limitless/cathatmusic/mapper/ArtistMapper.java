@@ -6,6 +6,7 @@ import cn.limitless.cathatmusic.dto.ArtistUpdateRequest;
 import cn.limitless.cathatmusic.entity.Artist;
 import cn.limitless.cathatmusic.vo.ArtistVo;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -16,6 +17,7 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel = "spring", uses = {FileMapper.class, MusicMapper.class})
 public interface ArtistMapper extends MapperInterface<Artist, ArtistDto> {
+	@Mapping(source = "photoId", target = "photo.id")
 	ArtistDto toDto(ArtistCreateRequest artistCreateRequest);
 
 	ArtistDto toDto(ArtistUpdateRequest artistUpdateRequest);

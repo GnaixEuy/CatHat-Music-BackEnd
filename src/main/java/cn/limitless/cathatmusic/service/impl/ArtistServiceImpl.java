@@ -11,14 +11,9 @@ import cn.limitless.cathatmusic.repository.specs.ArtistSpecification;
 import cn.limitless.cathatmusic.repository.specs.SearchCriteria;
 import cn.limitless.cathatmusic.repository.specs.SearchOperation;
 import cn.limitless.cathatmusic.service.ArtistService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +29,11 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class ArtistServiceImpl extends TraceableGeneralServiceImpl<Artist, ArtistDto> implements ArtistService {
 
-	private final ArtistMapper mapper;
+	private ArtistMapper mapper;
 
-	private final ArtistRepository repository;
+	private ArtistRepository repository;
 
 	@Override
 	public List<ArtistDto> list() {
@@ -49,11 +43,27 @@ public class ArtistServiceImpl extends TraceableGeneralServiceImpl<Artist, Artis
 	@Override
 	public Page<ArtistDto> search(ArtistSearchFilter artistSearchFilter) {
 		ArtistSpecification specs = new ArtistSpecification();
-		// Todo: 代码重复需要重构
 		specs.add(new SearchCriteria("name", artistSearchFilter.getName(), SearchOperation.MATCH));
-		Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
-		Pageable pageable = PageRequest.of(artistSearchFilter.getPage() - 1, artistSearchFilter.getSize(), sort);
-		return repository.findAll(specs, pageable).map(mapper::toDto);
+		if (artistSearchFilter.getRecommended() != null) {
+			specs.add(new SearchCriteria("recommended", artistSearchFilter.getRecommended(), SearchOperation.EQUAL));
+		}
+		return repository.findAll(specs, artistSearchFilter.toPageable()).map(mapper::toDto);
+	}
+
+	@Override
+	public ArtistDto recommend(String id, Integer recommendFactor) {
+		Artist artist = getEntity(id);
+		artist.setRecommended(true);
+		artist.setRecommendFactor(recommendFactor);
+		return mapper.toDto(repository.save(artist));
+	}
+
+	@Override
+	public ArtistDto cancelRecommendation(String id) {
+		Artist artist = getEntity(id);
+		artist.setRecommended(false);
+		artist.setRecommendFactor(0);
+		return mapper.toDto(repository.save(artist));
 	}
 
 	@Override
@@ -61,9 +71,19 @@ public class ArtistServiceImpl extends TraceableGeneralServiceImpl<Artist, Artis
 		return repository;
 	}
 
+	@Autowired
+	public void setRepository(ArtistRepository repository) {
+		this.repository = repository;
+	}
+
 	@Override
 	public MapperInterface<Artist, ArtistDto> getMapper() {
 		return mapper;
+	}
+
+	@Autowired
+	public void setMapper(ArtistMapper mapper) {
+		this.mapper = mapper;
 	}
 
 	@Override

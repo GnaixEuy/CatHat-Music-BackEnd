@@ -3,7 +3,6 @@ package cn.limitless.cathatmusic.vo;
 import cn.limitless.cathatmusic.enums.PlayListStatus;
 import lombok.*;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlaylistVo extends BaseVo {
-	private String id;
 
 	private String name;
 
@@ -29,11 +27,11 @@ public class PlaylistVo extends BaseVo {
 
 	private PlayListStatus status;
 
-	private UserVo creator;
-
 	private List<MusicVo> musicList;
 
-	private Date createdTime;
+	private Boolean recommended;
 
-	private Date updatedTime;
+	private Integer recommendFactor;
+
+	private Boolean special;
 }

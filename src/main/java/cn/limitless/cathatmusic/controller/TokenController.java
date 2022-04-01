@@ -5,7 +5,10 @@ import cn.limitless.cathatmusic.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
@@ -24,11 +27,6 @@ public class TokenController {
 	@PostMapping
 	public String create(@RequestBody TokenCreateRequest tokenCreateRequest) {
 		return userService.createToken(tokenCreateRequest);
-	}
-
-	@PostMapping("/mp")
-	public String createByMp(@RequestHeader(name = "X-WX-OPENID") String openId) {
-		return userService.createTokenByOpenId(openId);
 	}
 
 }

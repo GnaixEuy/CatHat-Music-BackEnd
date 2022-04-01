@@ -22,6 +22,4 @@ public interface UserRepository extends JpaRepository<User, String> {
 	User getById(String id);
 
 	Page<User> findAll(Pageable pageable);
-
-	User getByOpenId(String openId);
 }
