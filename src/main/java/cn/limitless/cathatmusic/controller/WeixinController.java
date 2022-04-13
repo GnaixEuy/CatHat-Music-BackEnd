@@ -1,6 +1,5 @@
 package cn.limitless.cathatmusic.controller;
 
-import lombok.RequiredArgsConstructor;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.api.WxMpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.websocket.server.PathParam;
 
 /**
- * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
+ * <img src="https://c-ssl.duitang.com/uploads/blog/202008/30/20200830183701_3ZzSR.thumb.1000_0.jpeg"/>
  *
  * @author GnaixEuy
  * @date 2022/2/14
@@ -20,18 +19,22 @@ import javax.websocket.server.PathParam;
  */
 @RestController
 @RequestMapping(value = {"/weixin"})
-@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class WeixinController {
 
-	private final WxMpService wxMpService;
+    private WxMpService wxMpService;
 
-	@GetMapping("/auth_url")
-	public String getAuthUrl(@PathParam("redirectUrl") String redirectUrl) {
-		return wxMpService.getOAuth2Service().buildAuthorizationUrl(
-				redirectUrl,
-				WxConsts.OAuth2Scope.SNSAPI_USERINFO,
-				null
-		);
-	}
+    @GetMapping("/auth_url")
+    public String getAuthUrl(@PathParam("redirectUrl") String redirectUrl) {
+        return wxMpService.getOAuth2Service().buildAuthorizationUrl(
+                redirectUrl,
+                WxConsts.OAuth2Scope.SNSAPI_USERINFO,
+                null
+        );
+    }
 
+    @Autowired
+    @Lazy
+    public void setWxMpService(WxMpService wxMpService) {
+        this.wxMpService = wxMpService;
+    }
 }

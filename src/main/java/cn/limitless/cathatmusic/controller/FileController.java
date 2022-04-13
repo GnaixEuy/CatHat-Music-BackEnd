@@ -6,7 +6,6 @@ import cn.limitless.cathatmusic.mapper.FileUploadMapper;
 import cn.limitless.cathatmusic.service.FileService;
 import cn.limitless.cathatmusic.vo.FileUploadVo;
 import cn.limitless.cathatmusic.vo.FileVo;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +15,7 @@ import javax.annotation.security.RolesAllowed;
 import java.io.IOException;
 
 /**
- * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
+ * <img src="https://c-ssl.duitang.com/uploads/blog/202008/30/20200830183701_3ZzSR.thumb.1000_0.jpeg"/>
  *
  * @author GnaixEuy
  * @date 2022/2/26
@@ -25,23 +24,39 @@ import java.io.IOException;
 @RestController
 @RolesAllowed(value = {"ROLE_ADMIN"})
 @RequestMapping(value = {"/files"})
-@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class FileController {
 
-	private final FileService fileService;
+    private FileService fileService;
 
-	private final FileMapper fileMapper;
+    private FileMapper fileMapper;
 
-	private final FileUploadMapper fileUploadMapper;
+    private FileUploadMapper fileUploadMapper;
 
-	@PostMapping("/upload_init")
-	public FileUploadVo initUpload(@Validated @RequestBody FileUploadRequest fileUploadRequest) throws IOException {
-		return fileUploadMapper.toVo(fileService.initUpload(fileUploadRequest));
-	}
+    @PostMapping("/upload_init")
+    public FileUploadVo initUpload(@Validated @RequestBody FileUploadRequest fileUploadRequest) throws IOException {
+        return fileUploadMapper.toVo(fileService.initUpload(fileUploadRequest));
+    }
 
-	@PostMapping("/{id}/upload_finish")
-	public FileVo finishUpload(@PathVariable String id) {
-		return fileMapper.toVo(fileService.finishUpload(id));
-	}
+    @PostMapping("/{id}/upload_finish")
+    public FileVo finishUpload(@PathVariable String id) {
+        return fileMapper.toVo(fileService.finishUpload(id));
+    }
 
+    @Autowired
+    @Lazy
+    public void setFileService(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+    @Autowired
+    @Lazy
+    public void setFileMapper(FileMapper fileMapper) {
+        this.fileMapper = fileMapper;
+    }
+
+    @Autowired
+    @Lazy
+    public void setFileUploadMapper(FileUploadMapper fileUploadMapper) {
+        this.fileUploadMapper = fileUploadMapper;
+    }
 }

@@ -7,20 +7,23 @@ import cn.limitless.cathatmusic.entity.Artist;
 import cn.limitless.cathatmusic.vo.ArtistVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 /**
- * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
+ * <img src="https://c-ssl.duitang.com/uploads/blog/202008/30/20200830183701_3ZzSR.thumb.1000_0.jpeg"/>
  *
  * @author GnaixEuy
  * @date 2022/3/13
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
-@Mapper(componentModel = "spring", uses = {FileMapper.class, MusicMapper.class})
+@Mapper(componentModel = "spring", uses = {FileMapper.class, MusicMapper.class}, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ArtistMapper extends MapperInterface<Artist, ArtistDto> {
-	@Mapping(source = "photoId", target = "photo.id")
-	ArtistDto toDto(ArtistCreateRequest artistCreateRequest);
+    @Mapping(source = "photoId", target = "photo.id")
+    ArtistDto toDto(ArtistCreateRequest artistCreateRequest);
 
-	ArtistDto toDto(ArtistUpdateRequest artistUpdateRequest);
+    ArtistDto toDto(ArtistUpdateRequest artistUpdateRequest);
 
-	ArtistVo toVo(ArtistDto artistDto);
+    ArtistVo toVo(ArtistDto artistDto);
 }
