@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.entity;
 
 import cn.limitless.cathatmusic.enums.PlayListStatus;
@@ -16,23 +24,23 @@ import java.util.List;
 @Entity
 @Data
 public class Playlist extends TraceableBaseEntity {
-	private String name;
+    private String name;
 
-	private String description;
-	@OneToOne
-	private File cover;
+    private String description;
+    @OneToOne
+    private File cover;
 
-	@Enumerated(EnumType.STRING)
-	private PlayListStatus status = PlayListStatus.DRAFT;
+    @Enumerated(EnumType.STRING)
+    private PlayListStatus status = PlayListStatus.DRAFT;
 
 
-	@ManyToMany
-	@JoinTable(name = "playlist_music", joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "music_id", referencedColumnName = "id"))
-	private List<Music> musicList;
+    @ManyToMany
+    @JoinTable(name = "playlist_music", joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "music_id", referencedColumnName = "id"))
+    private List<Music> musicList;
 
-	private Boolean recommended = false;
+    private Boolean recommended = false;
 
-	private Integer recommendFactor = 0;
+    private Integer recommendFactor = 0;
 
-	private Boolean special = false;
+    private Boolean special = false;
 }

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.mapper;
 
 import cn.limitless.cathatmusic.dto.PlaylistCreateRequest;
@@ -17,11 +25,11 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Mapper(componentModel = "spring", uses = {FileMapper.class}, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-		nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface PlaylistMapper extends MapperInterface<Playlist, PlaylistDto> {
 
-	@Mapping(source = "coverId", target = "cover.id")
-	PlaylistDto toDto(PlaylistCreateRequest playlistCreateRequest);
+    @Mapping(source = "coverId", target = "cover.id")
+    PlaylistDto toDto(PlaylistCreateRequest playlistCreateRequest);
 
-	PlaylistVo toVo(PlaylistDto playlistDto);
+    PlaylistVo toVo(PlaylistDto playlistDto);
 }

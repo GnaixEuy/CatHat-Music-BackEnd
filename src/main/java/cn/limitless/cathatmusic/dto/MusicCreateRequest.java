@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.dto;
 
 import lombok.AllArgsConstructor;
@@ -20,13 +28,13 @@ import java.util.List;
 @NoArgsConstructor
 public class MusicCreateRequest {
 
-	@NotBlank(message = "歌曲名不能为空")
-	private String name;
+    @NotBlank(message = "歌曲名不能为空")
+    private String name;
 
-	private String description;
+    private String description;
 
-	private String fileId;
+    private String fileId;
 
-	@NotNull(message = "歌手未选择")
-	private List<String> artistIds;
+    @NotNull(message = "歌手未选择")
+    private List<String> artistIds;
 }

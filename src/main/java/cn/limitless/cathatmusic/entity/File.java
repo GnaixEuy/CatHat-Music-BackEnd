@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.entity;
 
 import cn.limitless.cathatmusic.enums.FileStatus;
@@ -20,21 +28,21 @@ import javax.persistence.Enumerated;
 @Entity
 @Data
 public class File extends TraceableBaseEntity {
-	private String name;
+    private String name;
 
-	@Column(name = "file_key")
-	private String key;
+    @Column(name = "file_key")
+    private String key;
 
-	private String ext;
+    private String ext;
 
-	private Integer size;
+    private Integer size;
 
-	@Enumerated(EnumType.STRING)
-	private FileType type;
+    @Enumerated(EnumType.STRING)
+    private FileType type;
 
-	@Enumerated(EnumType.STRING)
-	private Storage storage;
+    @Enumerated(EnumType.STRING)
+    private Storage storage;
 
-	@Enumerated(EnumType.STRING)
-	private FileStatus status = FileStatus.UPLOADING;
+    @Enumerated(EnumType.STRING)
+    private FileStatus status = FileStatus.UPLOADING;
 }

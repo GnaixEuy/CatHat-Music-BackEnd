@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.service.impl;
 
 import cn.limitless.cathatmusic.config.SecurityConfig;
@@ -33,100 +41,100 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl extends BaseService implements UserService {
 
-	UserRepository repository;
+    UserRepository repository;
 
-	UserMapper mapper;
+    UserMapper mapper;
 
-	PasswordEncoder passwordEncoder;
-
-
-	@Override
-	public UserDto create(UserCreateRequest userCreateRequest) {
-		checkUserName(userCreateRequest.getUsername());
-		User user = mapper.createEntity(userCreateRequest);
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return mapper.toDto(repository.save(user));
-	}
-
-	@Override
-	public UserDto get(String id) {
-		return mapper.toDto(getById(id));
-	}
-
-	@Override
-	public UserDto update(String id, UserUpdateRequest userUpdateRequest) {
-		return mapper.toDto(repository.save(mapper.updateEntity(getById(id), userUpdateRequest)));
-	}
-
-	private User getById(String id) {
-		Optional<User> user = repository.findById(id);
-		if (!user.isPresent()) {
-			throw new BizException(ExceptionType.USER_NOT_FOUND);
-		}
-		return user.get();
-	}
-
-	@Override
-	public void delete(String id) {
-		repository.delete(getById(id));
-	}
-
-	@Override
-	public Page<UserDto> search(Pageable pageable) {
-		return repository.findAll(pageable).map(mapper::toDto);
-	}
-
-	@Override
-	public User loadUserByUsername(String username) {
-		return super.loadUserByUsername(username);
-	}
-
-	@Override
-	public String createToken(TokenCreateRequest tokenCreateRequest) {
-		User user = loadUserByUsername(tokenCreateRequest.getUsername());
-		if (!passwordEncoder.matches(tokenCreateRequest.getPassword(), user.getPassword())) {
-			throw new BizException(ExceptionType.USER_PASSWORD_NOT_MATCH);
-		}
-		if (!user.isEnabled()) {
-			throw new BizException(ExceptionType.USER_NOT_ENABLED);
-		}
-
-		if (!user.isAccountNonLocked()) {
-			throw new BizException(ExceptionType.USER_LOCKED);
-		}
-
-		return JWT.create()
-				.withSubject(user.getUsername())
-				.withExpiresAt(new Date(System.currentTimeMillis() + SecurityConfig.EXPIRATION_TIME))
-				.sign(Algorithm.HMAC512(SecurityConfig.SECRET.getBytes()));
-	}
-
-	@Override
-	public UserDto getCurrentUser() {
-		return mapper.toDto(super.getCurrentUserEntity());
-	}
+    PasswordEncoder passwordEncoder;
 
 
-	private void checkUserName(String username) {
-		Optional<User> user = repository.findByUsername(username);
-		if (user.isPresent()) {
-			throw new BizException(ExceptionType.USER_NAME_DUPLICATE);
-		}
-	}
+    @Override
+    public UserDto create(UserCreateRequest userCreateRequest) {
+        checkUserName(userCreateRequest.getUsername());
+        User user = mapper.createEntity(userCreateRequest);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return mapper.toDto(repository.save(user));
+    }
+
+    @Override
+    public UserDto get(String id) {
+        return mapper.toDto(getById(id));
+    }
+
+    @Override
+    public UserDto update(String id, UserUpdateRequest userUpdateRequest) {
+        return mapper.toDto(repository.save(mapper.updateEntity(getById(id), userUpdateRequest)));
+    }
+
+    private User getById(String id) {
+        Optional<User> user = repository.findById(id);
+        if (!user.isPresent()) {
+            throw new BizException(ExceptionType.USER_NOT_FOUND);
+        }
+        return user.get();
+    }
+
+    @Override
+    public void delete(String id) {
+        repository.delete(getById(id));
+    }
+
+    @Override
+    public Page<UserDto> search(Pageable pageable) {
+        return repository.findAll(pageable).map(mapper::toDto);
+    }
+
+    @Override
+    public User loadUserByUsername(String username) {
+        return super.loadUserByUsername(username);
+    }
+
+    @Override
+    public String createToken(TokenCreateRequest tokenCreateRequest) {
+        User user = loadUserByUsername(tokenCreateRequest.getUsername());
+        if (!passwordEncoder.matches(tokenCreateRequest.getPassword(), user.getPassword())) {
+            throw new BizException(ExceptionType.USER_PASSWORD_NOT_MATCH);
+        }
+        if (!user.isEnabled()) {
+            throw new BizException(ExceptionType.USER_NOT_ENABLED);
+        }
+
+        if (!user.isAccountNonLocked()) {
+            throw new BizException(ExceptionType.USER_LOCKED);
+        }
+
+        return JWT.create()
+                .withSubject(user.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConfig.EXPIRATION_TIME))
+                .sign(Algorithm.HMAC512(SecurityConfig.SECRET.getBytes()));
+    }
+
+    @Override
+    public UserDto getCurrentUser() {
+        return mapper.toDto(super.getCurrentUserEntity());
+    }
 
 
-	@Autowired
-	private void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-		this.passwordEncoder = passwordEncoder;
-	}
+    private void checkUserName(String username) {
+        Optional<User> user = repository.findByUsername(username);
+        if (user.isPresent()) {
+            throw new BizException(ExceptionType.USER_NAME_DUPLICATE);
+        }
+    }
 
-	@Autowired
-	private void setMapper(UserMapper mapper) {
-		this.mapper = mapper;
-	}
 
-	@Autowired
-	private void setRepository(UserRepository repository) {
-		this.repository = repository;
-	}
+    @Autowired
+    private void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Autowired
+    private void setMapper(UserMapper mapper) {
+        this.mapper = mapper;
+    }
+
+    @Autowired
+    private void setRepository(UserRepository repository) {
+        this.repository = repository;
+    }
 }

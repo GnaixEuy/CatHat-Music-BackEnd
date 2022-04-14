@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.service;
 
 import cn.limitless.cathatmusic.dto.ArtistDto;
@@ -15,12 +23,12 @@ import java.util.List;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 public interface ArtistService extends GeneralService<Artist, ArtistDto> {
-	List<ArtistDto> list();
+    List<ArtistDto> list();
 
-	Page<ArtistDto> search(ArtistSearchFilter artistSearchFilter);
+    Page<ArtistDto> search(ArtistSearchFilter artistSearchFilter);
 
 
-	ArtistDto recommend(String id, Integer recommendFactor);
+    ArtistDto recommend(String id, Integer recommendFactor);
 
-	ArtistDto cancelRecommendation(String id);
+    ArtistDto cancelRecommendation(String id);
 }

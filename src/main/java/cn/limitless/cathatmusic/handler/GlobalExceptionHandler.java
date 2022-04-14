@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.handler;
 
 import cn.limitless.cathatmusic.exception.BizException;
@@ -26,51 +34,51 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(value = BizException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ErrorResponse bizExceptionHandler(BizException e) {
-		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setCode(e.getCode());
-		errorResponse.setMessage(e.getMessage());
-		errorResponse.setTrace(e.getStackTrace());
-		log.error(e.getMessage());
-		return errorResponse;
-	}
+    @ExceptionHandler(value = BizException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse bizExceptionHandler(BizException e) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setCode(e.getCode());
+        errorResponse.setMessage(e.getMessage());
+        errorResponse.setTrace(e.getStackTrace());
+        log.error(e.getMessage());
+        return errorResponse;
+    }
 
-	@ExceptionHandler(value = Exception.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ErrorResponse exceptionHandler(Exception e) {
-		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setCode(ExceptionType.INNER_ERROR.getCode());
-		errorResponse.setMessage(ExceptionType.INNER_ERROR.getMessage());
-		e.printStackTrace();
-		log.error(e.getMessage());
-		return errorResponse;
-	}
+    @ExceptionHandler(value = Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse exceptionHandler(Exception e) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setCode(ExceptionType.INNER_ERROR.getCode());
+        errorResponse.setMessage(ExceptionType.INNER_ERROR.getMessage());
+        e.printStackTrace();
+        log.error(e.getMessage());
+        return errorResponse;
+    }
 
-	@ExceptionHandler(value = AccessDeniedException.class)
-	@ResponseStatus(HttpStatus.FORBIDDEN)
-	public ErrorResponse accessDeniedHandler(Exception e) {
-		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setCode(ExceptionType.FORBIDDEN.getCode());
-		errorResponse.setMessage(ExceptionType.FORBIDDEN.getMessage());
-		e.printStackTrace();
-		log.error(e.getMessage());
-		return errorResponse;
-	}
+    @ExceptionHandler(value = AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse accessDeniedHandler(Exception e) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setCode(ExceptionType.FORBIDDEN.getCode());
+        errorResponse.setMessage(ExceptionType.FORBIDDEN.getMessage());
+        e.printStackTrace();
+        log.error(e.getMessage());
+        return errorResponse;
+    }
 
-	@ExceptionHandler(value = MethodArgumentNotValidException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public List<ErrorResponse> bizExceptionHandler(MethodArgumentNotValidException e) {
-		List<ErrorResponse> errorResponses = new ArrayList<>();
-		e.printStackTrace();
-		e.getBindingResult().getAllErrors().forEach((error) -> {
-			ErrorResponse errorResponse = new ErrorResponse();
-			errorResponse.setCode(ExceptionType.BAD_REQUEST.getCode());
-			errorResponse.setMessage(error.getDefaultMessage());
-			errorResponses.add(errorResponse);
-			log.error(error.getDefaultMessage());
-		});
-		return errorResponses;
-	}
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public List<ErrorResponse> bizExceptionHandler(MethodArgumentNotValidException e) {
+        List<ErrorResponse> errorResponses = new ArrayList<>();
+        e.printStackTrace();
+        e.getBindingResult().getAllErrors().forEach((error) -> {
+            ErrorResponse errorResponse = new ErrorResponse();
+            errorResponse.setCode(ExceptionType.BAD_REQUEST.getCode());
+            errorResponse.setMessage(error.getDefaultMessage());
+            errorResponses.add(errorResponse);
+            log.error(error.getDefaultMessage());
+        });
+        return errorResponses;
+    }
 }

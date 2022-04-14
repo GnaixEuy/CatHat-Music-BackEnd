@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.entity;
 
 import lombok.Data;
@@ -23,31 +31,31 @@ import java.util.Objects;
 @Data
 public abstract class BaseEntity {
 
-	@Id
-	@GeneratedValue(generator = "ksuid")
-	@GenericGenerator(name = "ksuid", strategy = "cn.limitless.cathatmusic.utils.KsuidIdentifierGenerator")
-	private String id;
+    @Id
+    @GeneratedValue(generator = "ksuid")
+    @GenericGenerator(name = "ksuid", strategy = "cn.limitless.cathatmusic.utils.KsuidIdentifierGenerator")
+    private String id;
 
-	@CreationTimestamp
-	private Date createdTime;
+    @CreationTimestamp
+    private Date createdTime;
 
-	@UpdateTimestamp
-	private Date updatedTime;
+    @UpdateTimestamp
+    private Date updatedTime;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-			return false;
-		}
-		BaseEntity that = (BaseEntity) o;
-		return id != null && Objects.equals(id, that.id);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        BaseEntity that = (BaseEntity) o;
+        return id != null && Objects.equals(id, that.id);
+    }
 
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

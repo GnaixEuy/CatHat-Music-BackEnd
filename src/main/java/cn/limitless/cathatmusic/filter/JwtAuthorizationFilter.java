@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.filter;
 
 import cn.limitless.cathatmusic.config.SecurityConfig;
@@ -25,37 +33,37 @@ import java.io.IOException;
  */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-	private final UserService userService;
+    private final UserService userService;
 
-	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserService userService) {
-		super(authenticationManager);
-		this.userService = userService;
-	}
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserService userService) {
+        super(authenticationManager);
+        this.userService = userService;
+    }
 
-	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-		String header = request.getHeader(SecurityConfig.HEADER_STRING);
-		if (header == null || !header.startsWith(SecurityConfig.TOKEN_PREFIX)) {
-			chain.doFilter(request, response);
-			return;
-		}
-		UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(header);
-		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-		chain.doFilter(request, response);
-	}
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        String header = request.getHeader(SecurityConfig.HEADER_STRING);
+        if (header == null || !header.startsWith(SecurityConfig.TOKEN_PREFIX)) {
+            chain.doFilter(request, response);
+            return;
+        }
+        UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(header);
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        chain.doFilter(request, response);
+    }
 
-	private UsernamePasswordAuthenticationToken getAuthentication(String header) {
-		if (header != null) {
-			String username = JWT.require(Algorithm.HMAC512(SecurityConfig.SECRET.getBytes()))
-					.build()
-					.verify(header.replace(SecurityConfig.TOKEN_PREFIX, ""))
-					.getSubject();
+    private UsernamePasswordAuthenticationToken getAuthentication(String header) {
+        if (header != null) {
+            String username = JWT.require(Algorithm.HMAC512(SecurityConfig.SECRET.getBytes()))
+                    .build()
+                    .verify(header.replace(SecurityConfig.TOKEN_PREFIX, ""))
+                    .getSubject();
 
-			if (username != null) {
-				final User user = this.userService.loadUserByUsername(username);
-				return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
-			}
-		}
-		return null;
-	}
+            if (username != null) {
+                final User user = this.userService.loadUserByUsername(username);
+                return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
+            }
+        }
+        return null;
+    }
 }

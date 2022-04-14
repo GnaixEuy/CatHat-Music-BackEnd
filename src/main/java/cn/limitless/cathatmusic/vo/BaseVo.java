@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,12 +27,12 @@ import java.util.Date;
 @NoArgsConstructor
 public abstract class BaseVo {
 
-	private String id;
+    private String id;
 
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyyMMddHHmmss")
-	private Date createdTime;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyyMMddHHmmss")
+    private Date createdTime;
 
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyyMMddHHmmss")
-	private Date updatedTime;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyyMMddHHmmss")
+    private Date updatedTime;
 
 }

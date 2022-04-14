@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.repository;
 
 import cn.limitless.cathatmusic.entity.User;
@@ -17,32 +25,32 @@ import java.util.Optional;
 @SpringBootTest
 class UserRepositoryTest {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Test
-	void getByUsername() {
-	}
+    @Test
+    void getByUsername() {
+    }
 
-	@Test
-	void findByUsername() {
-		final Optional<User> admin = this.userRepository.findByUsername("admin");
-		if (admin.isPresent()) {
-			System.out.println(admin.get());
-		} else {
-			System.out.println("草");
-		}
-	}
+    @Test
+    void findByUsername() {
+        final Optional<User> admin = this.userRepository.findByUsername("admin");
+        if (admin.isPresent()) {
+            System.out.println(admin.get());
+        } else {
+            System.out.println("草");
+        }
+    }
 
-	@Test
-	void getById() {
-	}
+    @Test
+    void getById() {
+    }
 
-	@Test
-	void findAll() {
-	}
+    @Test
+    void findAll() {
+    }
 
-	@Test
-	void getByOpenId() {
-	}
+    @Test
+    void getByOpenId() {
+    }
 }

@@ -1,15 +1,23 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 CREATE TABLE artist
 (
-    `id` VARCHAR(32) NOT NULL
+    `id`                 VARCHAR(32)                 NOT NULL
         PRIMARY KEY COMMENT '歌手ID',
-    `name` VARCHAR(64) NOT NULL COMMENT '歌手名字',
-    `remark` VARCHAR(128) NULL COMMENT '歌手备注',
-    `photo_id` VARCHAR(32) NULL COMMENT '歌手照片ID',
-    `status` VARCHAR(32) DEFAULT 'DRAFT' NOT NULL COMMENT '歌手上架状态，DRAFT-草稿，PUBLISHED-已上架，BLOCKED-已封禁',
-    `created_by_user_id` VARCHAR(32) NOT NULL COMMENT '创建人ID',
-    `updated_by_user_id` VARCHAR(32) NOT NULL COMMENT '最后更新人ID',
-    `created_time` datetime(6) NOT NULL COMMENT '创建时间',
-    `updated_time` datetime(6) NOT NULL COMMENT '更新时间',
+    `name`               VARCHAR(64)                 NOT NULL COMMENT '歌手名字',
+    `remark`             VARCHAR(128)                NULL COMMENT '歌手备注',
+    `photo_id`           VARCHAR(32)                 NULL COMMENT '歌手照片ID',
+    `status`             VARCHAR(32) DEFAULT 'DRAFT' NOT NULL COMMENT '歌手上架状态，DRAFT-草稿，PUBLISHED-已上架，BLOCKED-已封禁',
+    `created_by_user_id` VARCHAR(32)                 NOT NULL COMMENT '创建人ID',
+    `updated_by_user_id` VARCHAR(32)                 NOT NULL COMMENT '最后更新人ID',
+    `created_time`       datetime(6)                 NOT NULL COMMENT '创建时间',
+    `updated_time`       datetime(6)                 NOT NULL COMMENT '更新时间',
     CONSTRAINT artist_photo_id
         FOREIGN KEY (photo_id) REFERENCES `file` (id),
     CONSTRAINT artist_created_by_user_id

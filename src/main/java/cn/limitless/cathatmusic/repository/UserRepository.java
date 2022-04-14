@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.repository;
 
 import cn.limitless.cathatmusic.entity.User;
@@ -15,11 +23,11 @@ import java.util.Optional;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 public interface UserRepository extends JpaRepository<User, String> {
-	User getByUsername(String username);
+    User getByUsername(String username);
 
-	Optional<User> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-	User getById(String id);
+    User getById(String id);
 
-	Page<User> findAll(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 }

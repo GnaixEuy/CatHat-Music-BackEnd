@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.config;
 
 import org.springframework.context.annotation.Bean;
@@ -25,42 +33,42 @@ import java.util.List;
 @EnableOpenApi
 public class SwaggerConfig {
 
-	@Bean
-	public Docket docket() {
-		return new Docket(DocumentationType.OAS_30)
-				.apiInfo(apiInfo()).enable(true)
-				.securityContexts(Collections.singletonList(securityContext()))
-				.securitySchemes(Collections.singletonList(apiKey()))
-				.select()
-				.apis(RequestHandlerSelectors.basePackage("cn.limitless.cathatmusic.controller"))
-				.paths(PathSelectors.any())
-				.build();
-	}
+    @Bean
+    public Docket docket() {
+        return new Docket(DocumentationType.OAS_30)
+                .apiInfo(apiInfo()).enable(true)
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Collections.singletonList(apiKey()))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("cn.limitless.cathatmusic.controller"))
+                .paths(PathSelectors.any())
+                .build();
+    }
 
 
-	private SecurityContext securityContext() {
-		return SecurityContext.builder().securityReferences(defaultAuth()).build();
-	}
+    private SecurityContext securityContext() {
+        return SecurityContext.builder().securityReferences(defaultAuth()).build();
+    }
 
-	private List<SecurityReference> defaultAuth() {
-		AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-		authorizationScopes[0] = authorizationScope;
-		return Collections.singletonList(new SecurityReference("Authorization", authorizationScopes));
-	}
+    private List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return Collections.singletonList(new SecurityReference("Authorization", authorizationScopes));
+    }
 
-	private ApiKey apiKey() {
-		return new ApiKey("Authorization", "Authorization", "header");
-	}
+    private ApiKey apiKey() {
+        return new ApiKey("Authorization", "Authorization", "header");
+    }
 
 
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-				.title("猫猫头音乐")
-				.description("猫猫头音乐接口文档")
-				.contact(new Contact("GnaixEuy", "https://blog.GnaixEuy.cn", "SGGHCJ@Live.com"))
-				.version("1.0.0")
-				.build();
-	}
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("猫猫头音乐")
+                .description("猫猫头音乐接口文档")
+                .contact(new Contact("GnaixEuy", "https://blog.GnaixEuy.cn", "SGGHCJ@Live.com"))
+                .version("1.0.0")
+                .build();
+    }
 
 }

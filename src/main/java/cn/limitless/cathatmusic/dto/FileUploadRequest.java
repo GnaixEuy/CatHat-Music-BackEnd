@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.dto;
 
 import lombok.AllArgsConstructor;
@@ -18,16 +26,16 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class FileUploadRequest {
 
-	@NotBlank(message = "文件名不能为空")
-	private String name;
+    @NotBlank(message = "文件名不能为空")
+    private String name;
 
-	private Long size;
+    private Long size;
 
-	@NotBlank(message = "后缀名不能为空")
-	private String ext;
+    @NotBlank(message = "后缀名不能为空")
+    private String ext;
 
-	@NotBlank(message = "key不能为空")
-	private String key;
+    @NotBlank(message = "key不能为空")
+    private String key;
 
 
 }

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.service;
 
 import cn.limitless.cathatmusic.dto.TokenCreateRequest;
@@ -17,20 +25,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 public interface UserService extends UserDetailsService {
-	UserDto create(UserCreateRequest userCreateRequest);
+    UserDto create(UserCreateRequest userCreateRequest);
 
-	@Override
-	User loadUserByUsername(String username);
+    @Override
+    User loadUserByUsername(String username);
 
-	UserDto get(String id);
+    UserDto get(String id);
 
-	UserDto update(String id, UserUpdateRequest userUpdateRequest);
+    UserDto update(String id, UserUpdateRequest userUpdateRequest);
 
-	void delete(String id);
+    void delete(String id);
 
-	Page<UserDto> search(Pageable pageable);
+    Page<UserDto> search(Pageable pageable);
 
-	String createToken(TokenCreateRequest tokenCreateRequest);
+    String createToken(TokenCreateRequest tokenCreateRequest);
 
-	UserDto getCurrentUser();
+    UserDto getCurrentUser();
 }

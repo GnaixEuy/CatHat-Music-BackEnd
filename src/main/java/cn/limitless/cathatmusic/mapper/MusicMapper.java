@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.mapper;
 
 import cn.limitless.cathatmusic.dto.ArtistDto;
@@ -22,29 +30,29 @@ import java.util.List;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 @Mapper(componentModel = "spring",
-		uses = {FileMapper.class},
-		nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-		nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+        uses = {FileMapper.class},
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public interface MusicMapper extends MapperInterface<Music, MusicDto> {
-	@Mapping(source = "fileId", target = "file.id")
-	@Mapping(target = "artistList", source = "artistIds")
-	MusicDto toDto(MusicCreateRequest musicCreateRequest);
+    @Mapping(source = "fileId", target = "file.id")
+    @Mapping(target = "artistList", source = "artistIds")
+    MusicDto toDto(MusicCreateRequest musicCreateRequest);
 
-	@Mapping(source = "fileId", target = "file.id")
-	@Mapping(target = "artistList", source = "artistIds")
-	MusicDto toDto(MusicUpdateRequest musicUpdateRequest);
+    @Mapping(source = "fileId", target = "file.id")
+    @Mapping(target = "artistList", source = "artistIds")
+    MusicDto toDto(MusicUpdateRequest musicUpdateRequest);
 
-	MusicVo toVo(MusicDto musicDto);
+    MusicVo toVo(MusicDto musicDto);
 
 
-	default List<ArtistDto> mapArtistList(List<String> artistIds) {
-		List<ArtistDto> artistList = new ArrayList<ArtistDto>();
-		for (String id : artistIds) {
-			ArtistDto artistDto = new ArtistDto();
-			artistDto.setId(id);
-			artistList.add(artistDto);
-		}
-		return artistList;
-	}
+    default List<ArtistDto> mapArtistList(List<String> artistIds) {
+        List<ArtistDto> artistList = new ArrayList<ArtistDto>();
+        for (String id : artistIds) {
+            ArtistDto artistDto = new ArtistDto();
+            artistDto.setId(id);
+            artistList.add(artistDto);
+        }
+        return artistList;
+    }
 }

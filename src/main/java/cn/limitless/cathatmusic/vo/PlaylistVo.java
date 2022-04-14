@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.vo;
 
 import cn.limitless.cathatmusic.enums.PlayListStatus;
@@ -19,19 +27,19 @@ import java.util.List;
 @NoArgsConstructor
 public class PlaylistVo extends BaseVo {
 
-	private String name;
+    private String name;
 
-	private String description;
+    private String description;
 
-	private FileVo cover;
+    private FileVo cover;
 
-	private PlayListStatus status;
+    private PlayListStatus status;
 
-	private List<MusicVo> musicList;
+    private List<MusicVo> musicList;
 
-	private Boolean recommended;
+    private Boolean recommended;
 
-	private Integer recommendFactor;
+    private Integer recommendFactor;
 
-	private Boolean special;
+    private Boolean special;
 }

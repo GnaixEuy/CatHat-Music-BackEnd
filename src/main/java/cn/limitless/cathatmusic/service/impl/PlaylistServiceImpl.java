@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.service.impl;
 
 import cn.limitless.cathatmusic.dto.PlaylistDto;
@@ -27,72 +35,72 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlaylistServiceImpl extends TraceableGeneralServiceImpl<Playlist, PlaylistDto> implements PlaylistService {
 
-	private PlaylistRepository repository;
+    private PlaylistRepository repository;
 
-	private PlaylistMapper mapper;
+    private PlaylistMapper mapper;
 
-	@Override
-	public Page<PlaylistDto> search(PlaylistSearchFilter playlistSearchFilter) {
-		PlaylistSpecification specs = new PlaylistSpecification();
-		specs.add(new SearchCriteria("name", playlistSearchFilter.getName(), SearchOperation.MATCH));
-		if (playlistSearchFilter.getRecommended() != null) {
-			specs.add(new SearchCriteria("recommended", playlistSearchFilter.getRecommended(), SearchOperation.EQUAL));
-		}
-		return repository.findAll(specs, playlistSearchFilter.toPageable()).map(mapper::toDto);
-	}
+    @Override
+    public Page<PlaylistDto> search(PlaylistSearchFilter playlistSearchFilter) {
+        PlaylistSpecification specs = new PlaylistSpecification();
+        specs.add(new SearchCriteria("name", playlistSearchFilter.getName(), SearchOperation.MATCH));
+        if (playlistSearchFilter.getRecommended() != null) {
+            specs.add(new SearchCriteria("recommended", playlistSearchFilter.getRecommended(), SearchOperation.EQUAL));
+        }
+        return repository.findAll(specs, playlistSearchFilter.toPageable()).map(mapper::toDto);
+    }
 
-	@Override
-	public PlaylistDto recommend(String id, Integer recommendFactor) {
-		Playlist playlist = getEntity(id);
-		playlist.setRecommended(true);
-		playlist.setRecommendFactor(recommendFactor);
-		return mapper.toDto(repository.save(playlist));
-	}
+    @Override
+    public PlaylistDto recommend(String id, Integer recommendFactor) {
+        Playlist playlist = getEntity(id);
+        playlist.setRecommended(true);
+        playlist.setRecommendFactor(recommendFactor);
+        return mapper.toDto(repository.save(playlist));
+    }
 
-	@Override
-	public PlaylistDto cancelRecommendation(String id) {
-		Playlist playlist = getEntity(id);
-		playlist.setRecommended(false);
-		playlist.setRecommendFactor(0);
-		return mapper.toDto(repository.save(playlist));
-	}
+    @Override
+    public PlaylistDto cancelRecommendation(String id) {
+        Playlist playlist = getEntity(id);
+        playlist.setRecommended(false);
+        playlist.setRecommendFactor(0);
+        return mapper.toDto(repository.save(playlist));
+    }
 
-	@Override
-	public PlaylistDto makeSpecial(String id) {
-		Playlist playlist = getEntity(id);
-		playlist.setSpecial(true);
-		return mapper.toDto(repository.save(playlist));
-	}
+    @Override
+    public PlaylistDto makeSpecial(String id) {
+        Playlist playlist = getEntity(id);
+        playlist.setSpecial(true);
+        return mapper.toDto(repository.save(playlist));
+    }
 
-	@Override
-	public PlaylistDto cancelSpecial(String id) {
-		Playlist playlist = getEntity(id);
-		playlist.setSpecial(false);
-		return mapper.toDto(repository.save(playlist));
-	}
+    @Override
+    public PlaylistDto cancelSpecial(String id) {
+        Playlist playlist = getEntity(id);
+        playlist.setSpecial(false);
+        return mapper.toDto(repository.save(playlist));
+    }
 
-	@Override
-	public JpaRepository<Playlist, String> getRepository() {
-		return repository;
-	}
+    @Override
+    public JpaRepository<Playlist, String> getRepository() {
+        return repository;
+    }
 
-	@Autowired
-	public void setRepository(PlaylistRepository repository) {
-		this.repository = repository;
-	}
+    @Autowired
+    public void setRepository(PlaylistRepository repository) {
+        this.repository = repository;
+    }
 
-	@Override
-	public MapperInterface<Playlist, PlaylistDto> getMapper() {
-		return mapper;
-	}
+    @Override
+    public MapperInterface<Playlist, PlaylistDto> getMapper() {
+        return mapper;
+    }
 
-	@Autowired
-	public void setMapper(PlaylistMapper mapper) {
-		this.mapper = mapper;
-	}
+    @Autowired
+    public void setMapper(PlaylistMapper mapper) {
+        this.mapper = mapper;
+    }
 
-	@Override
-	public ExceptionType getNotFoundExceptionType() {
-		return ExceptionType.PLAYLIST_NOT_FOUND;
-	}
+    @Override
+    public ExceptionType getNotFoundExceptionType() {
+        return ExceptionType.PLAYLIST_NOT_FOUND;
+    }
 }

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2022. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package cn.limitless.cathatmusic.service;
 
 import cn.limitless.cathatmusic.dto.FileDto;
@@ -16,11 +24,11 @@ import java.io.IOException;
  * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
  */
 public interface FileService {
-	FileUploadDto initUpload(FileUploadRequest fileUploadRequest) throws IOException;
+    FileUploadDto initUpload(FileUploadRequest fileUploadRequest) throws IOException;
 
-	FileDto finishUpload(String id);
+    FileDto finishUpload(String id);
 
-	Storage getDefaultStorage();
+    Storage getDefaultStorage();
 
-	File getFileEntity(String id);
+    File getFileEntity(String id);
 }
