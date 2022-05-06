@@ -8,47 +8,41 @@
 
 package cn.limitless.cathatmusic.dto;
 
-import cn.limitless.cathatmusic.enums.FileStatus;
-import cn.limitless.cathatmusic.enums.FileType;
-import cn.limitless.cathatmusic.enums.Storage;
+import cn.limitless.cathatmusic.enums.GeneralStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
+ * <p>
+ * 项目： CatHat-Music
  *
  * @author GnaixEuy
- * @date 2022/2/26
- * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
+ * @date 2022/5/6
+ * @see <a href="https://github.com/GnaixEuy"> GnaixEuy的GitHub </a>
  */
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class FileDto {
-
-    private String id;
-
+@NoArgsConstructor
+@Data
+public class AlbumDto extends TraceableBaseDto {
     private String name;
 
-    private String key;
+    private String description;
 
-    private String uri;
+    private FileDto cover;
 
-    private String ext;
+    private GeneralStatus status;
 
-    private Long size;
+    private Boolean recommended;
 
-    private FileType type;
+    private Integer recommendFactor;
 
-    private Storage storage;
+    private List<ArtistDto> artists;
 
-    private FileStatus status;
+    private List<MusicDto> musicList;
 
-    private Date createdTime;
-
-    private Date updatedTime;
 
 }

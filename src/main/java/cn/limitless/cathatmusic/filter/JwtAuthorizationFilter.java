@@ -33,9 +33,10 @@ import java.io.IOException;
  */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    private final UserService userService;
+    UserService userService;
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserService userService) {
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
+                                  UserService userService) {
         super(authenticationManager);
         this.userService = userService;
     }
@@ -43,10 +44,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader(SecurityConfig.HEADER_STRING);
+
         if (header == null || !header.startsWith(SecurityConfig.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
+
         UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(header);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         chain.doFilter(request, response);
@@ -58,9 +61,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     .build()
                     .verify(header.replace(SecurityConfig.TOKEN_PREFIX, ""))
                     .getSubject();
-
             if (username != null) {
-                final User user = this.userService.loadUserByUsername(username);
+                User user = userService.loadUserByUsername(username);
                 return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
             }
         }

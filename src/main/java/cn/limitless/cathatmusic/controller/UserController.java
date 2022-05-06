@@ -44,6 +44,9 @@ public class UserController {
     @ApiOperation("用户检索")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<UserVo> search(@PageableDefault(sort = {"createdTime"}, direction = Sort.Direction.ASC) Pageable pageable) {
+
+        System.out.println(pageable.getPageSize());
+
         return userService.search(pageable).map(userMapper::toVo);
     }
 

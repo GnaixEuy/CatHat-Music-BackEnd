@@ -6,22 +6,21 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package cn.limitless.cathatmusic.dto;
+package cn.limitless.cathatmusic.repository;
 
-import lombok.Data;
+import cn.limitless.cathatmusic.entity.Album;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
+ * <p>
+ * 项目： CatHat-Music
  *
  * @author GnaixEuy
- * @date 2022/3/31
- * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
+ * @date 2022/5/6
+ * @see <a href="https://github.com/GnaixEuy"> GnaixEuy的GitHub </a>
  */
-@Data
-public class PlaylistSearchFilter extends BaseSearchFilter {
-    private String name = "";
-
-    private Boolean recommended;
-
-    private Boolean special;
+public interface AlbumRepository extends JpaRepository<Album, String>, JpaSpecificationExecutor<Album> {
 }
+

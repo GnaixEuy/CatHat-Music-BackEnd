@@ -6,11 +6,14 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package cn.limitless.cathatmusic.repository;
+package cn.limitless.cathatmusic.service;
 
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
 
-@SpringBootTest
-class UserRepositoryTest {
+class PlaylistServiceTest {
 
+    @Test
+    void get() {
+
+    }
 }

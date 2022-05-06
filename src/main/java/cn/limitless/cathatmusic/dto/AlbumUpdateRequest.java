@@ -10,18 +10,29 @@ package cn.limitless.cathatmusic.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
+
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
+ * <p>
+ * 项目： CatHat-Music
  *
  * @author GnaixEuy
- * @date 2022/3/31
- * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
+ * @date 2022/5/6
+ * @see <a href="https://github.com/GnaixEuy"> GnaixEuy的GitHub </a>
  */
 @Data
-public class PlaylistSearchFilter extends BaseSearchFilter {
-    private String name = "";
+public class AlbumUpdateRequest {
+    @NotBlank(message = "专辑名字不能为空")
+    private String name;
 
-    private Boolean recommended;
+    private String description;
 
-    private Boolean special;
+    @NotBlank(message = "专辑封面必须上传")
+    private String coverId;
+
+    @NotEmpty(message = "至少选择一名歌手")
+    private List<String> artistIds;
 }

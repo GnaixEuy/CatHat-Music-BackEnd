@@ -55,22 +55,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers(SecurityConfig.CREATE_TOKEN_URL).permitAll()
-                .antMatchers(SecurityConfig.SITE_SETTING_URL).permitAll()
+                .antMatchers(CREATE_TOKEN_URL).permitAll()
+                .antMatchers(SITE_SETTING_URL).permitAll()
                 .antMatchers("/playlists/**").permitAll()
+                .antMatchers("/artists/").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userService))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService))
                 .exceptionHandling()
-                .authenticationEntryPoint(this.restAuthenticationEntryPoint)
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/swagger**/**")
+                .antMatchers("/webjars/**")
+                .antMatchers("/v3/**")
+                .antMatchers("/doc.html")
+                .antMatchers("/weixin/**");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.userService);
+        auth.userDetailsService(userService);
     }
 
     @Autowired
@@ -81,14 +91,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void setRestAuthenticationEntryPoint(RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
         this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
-    }
-
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/swagger**/**")
-                .antMatchers("/webjars/**")
-                .antMatchers("/v3/**")
-                .antMatchers("/doc.html")
-                .antMatchers("/weixin/**");
     }
 }

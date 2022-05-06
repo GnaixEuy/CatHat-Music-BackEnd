@@ -8,47 +8,35 @@
 
 package cn.limitless.cathatmusic.dto;
 
-import cn.limitless.cathatmusic.enums.FileStatus;
-import cn.limitless.cathatmusic.enums.FileType;
-import cn.limitless.cathatmusic.enums.Storage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 /**
  * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
+ * <p>
+ * 项目： CatHat-Music
  *
  * @author GnaixEuy
- * @date 2022/2/26
- * @see <a href='https://github.com/GnaixEuy'> GnaixEuy的GitHub </a>
+ * @date 2022/5/6
+ * @see <a href="https://github.com/GnaixEuy"> GnaixEuy的GitHub </a>
  */
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class FileDto {
-
-    private String id;
-
+@NoArgsConstructor
+@Data
+public class AlbumCreateRequest {
+    @NotBlank(message = "专辑名字不能为空")
     private String name;
 
-    private String key;
+    private String description;
 
-    private String uri;
+    @NotBlank(message = "专辑封面必须上传")
+    private String coverId;
 
-    private String ext;
-
-    private Long size;
-
-    private FileType type;
-
-    private Storage storage;
-
-    private FileStatus status;
-
-    private Date createdTime;
-
-    private Date updatedTime;
-
+    @NotEmpty(message = "至少选择一名歌手")
+    private List<String> artistIds;
 }

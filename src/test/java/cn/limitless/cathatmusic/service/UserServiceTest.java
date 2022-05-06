@@ -6,11 +6,21 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package cn.limitless.cathatmusic.repository;
+package cn.limitless.cathatmusic.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UserRepositoryTest {
+@Slf4j
+class UserServiceTest extends BaseTest {
 
+    @Autowired
+    UserService userService;
+
+    @Test
+    void getCurrentUser() {
+    }
 }

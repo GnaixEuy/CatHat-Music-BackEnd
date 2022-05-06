@@ -6,11 +6,20 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package cn.limitless.cathatmusic.repository;
+package cn.limitless.cathatmusic.dto;
 
-import org.springframework.boot.test.context.SpringBootTest;
+import lombok.Data;
 
-@SpringBootTest
-class UserRepositoryTest {
-
+/**
+ * <img src="http://blog.GnaixEuy.cn/wp-content/uploads/2021/08/bug.jpeg"/>
+ * <p>
+ * 项目： CatHat-Music
+ *
+ * @author GnaixEuy
+ * @date 2022/5/6
+ * @see <a href="https://github.com/GnaixEuy"> GnaixEuy的GitHub </a>
+ */
+@Data
+public class PaymentDto {
+    private String name;
 }
